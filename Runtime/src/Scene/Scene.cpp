@@ -186,10 +186,11 @@ namespace RNGOEngine::Core
         const auto& registry = world.GetRegistry();
         const auto entities = registry.view<entt::entity>();
         emitter << YAML::BeginSeq;
-        for (const auto entity : entities)
+        // TODO: Will kill cache by iterating in reverse.
+        for (auto it = entities.rbegin(); it != entities.rend(); ++it)
         {
             emitter << YAML::BeginMap;
-            SerializeComponents(registry, entity, emitter);
+            SerializeComponents(registry, *it, emitter);
             emitter << YAML::EndMap;
         }
         emitter << YAML::EndSeq;

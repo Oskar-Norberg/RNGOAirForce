@@ -129,7 +129,7 @@ namespace RNGOEngine::Components
     static void SerializeSpline(const Spline& spline, YAML::Emitter& emitter)
     {
         emitter << YAML::Key << "Spline" << YAML::Value << YAML::BeginMap;
-        emitter << YAML::Key << "ControlPoints" << YAML::Value << YAML::BeginSeq;
+        emitter << YAML::Key << "Points" << YAML::Value << YAML::BeginSeq;
         for (const auto& point : spline.Points)
         {
             emitter << YAML::Flow << YAML::BeginSeq << point.x << point.y << point.z << YAML::EndSeq;

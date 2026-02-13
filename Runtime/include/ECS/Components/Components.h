@@ -116,6 +116,23 @@ namespace RNGOEngine::Components
     struct Spline
     {
         std::vector<glm::vec3> Points;
+
+        glm::vec3 GetPositionAtT(const float t) const
+        {
+            if (Points.size() == 1)
+            {
+                return Points[0];
+            }
+
+            const float clampedT = glm::clamp(t, 0.0f, 1.0f);
+            const float totalLength = static_cast<float>(Points.size() - 1);
+            const float scaledT = clampedT * totalLength;
+            const size_t indexA = glm::floor(scaledT);
+            const size_t indexB = glm::min(indexA + 1, Points.size() - 1);
+            const float localT = scaledT - static_cast<float>(indexA);
+
+            return glm::mix(Points[indexA], Points[indexB], localT);
+        }
     };
 
     struct SplineAttachment
