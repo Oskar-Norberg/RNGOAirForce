@@ -111,4 +111,18 @@ namespace RNGOEngine::Components
         float CutOff = glm::cos(glm::radians(10.0f));
         float OuterCutOff = glm::cos(glm::radians(12.5f));
     };
+
+    // Project Specific Components
+    struct Spline
+    {
+        std::vector<glm::vec3> Points;
+    };
+
+    struct SplineAttachment
+    {
+        // How far along the spline the entity is. Range [0, 1].
+        float T = 0.0f;
+        // How many % of the spline should be covered per second.
+        float Speed = 0.01f;
+    };
 }

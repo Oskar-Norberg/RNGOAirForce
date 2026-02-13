@@ -281,4 +281,42 @@ namespace RNGOEngine::Editor
             ImGui::DragFloat("OuterCutOff", &spotlight.OuterCutOff, 0.01f);
         }
     }
+
+    // Project Specific Drawers
+    template<>
+    inline void DrawProperties<Components::Spline>(entt::registry& registry, const entt::entity entity)
+    {
+        if (registry.any_of<Components::Spline>(entity))
+        {
+            ImGui::Text("Spline");
+
+            auto& spline = registry.get<Components::Spline>(entity);
+            ImGui::Text("Points:");
+            for (size_t i = 0; i < spline.Points.size(); ++i)
+            {
+                ImGui::PushID(static_cast<int>(i));
+                ImGui::DragFloat3("Point", glm::value_ptr(spline.Points[i]), 0.01f);
+                ImGui::PopID();
+            }
+            if (ImGui::Button("Add Point"))
+            {
+                spline.Points.emplace_back(0.0f);
+            }
+        }
+    }
+
+    template<>
+    inline void DrawProperties<Components::SplineAttachment>(
+        entt::registry& registry, const entt::entity entity
+    )
+    {
+        if (registry.any_of<Components::SplineAttachment>(entity))
+        {
+            ImGui::Text("SplineAttachment");
+
+            auto& attachment = registry.get<Components::SplineAttachment>(entity);
+            ImGui::DragFloat("T", &attachment.T, 0.01f, 0.0f, 1.0f);
+            ImGui::DragFloat("Speed", &attachment.Speed, 0.01f);
+        }
+    }
 }

@@ -43,6 +43,9 @@ include(cmake/EngineUnits/Systems.cmake)
 include(cmake/EngineUnits/Physics.cmake)
 include(cmake/EngineUnits/RenderAPI.cmake)
 
+# Project Specific
+include(cmake/Project/ProjectSystems.cmake)
+
 # Testing
 include(cmake/Testing.cmake)
 
@@ -82,6 +85,9 @@ target_link_libraries(${CORE_PROJECT_NAME} PUBLIC
 
         ${PHYSICS_SYSTEM_PROJECT_NAME}
         ${RENDER_API_PROJECT_NAME}
+
+        # Project Specific
+        ${PROJECT_SPECIFIC_SYSTEMS}
 )
 
 # TODO: Get help with the asset copying mess.

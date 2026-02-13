@@ -135,4 +135,27 @@ namespace RNGOEngine::Components
     }
 
     // Don't have functions for the tag components, do that straight in the Scene.
+
+    // Component Specific Deserializers
+    static Spline DeserializeSpline(const YAML::Node& node)
+    {
+        Spline spline;
+        auto pointsNode = node["Points"];
+        for (const auto& pointNode : pointsNode)
+        {
+            spline.Points.emplace_back(
+                pointNode[0].as<float>(), pointNode[1].as<float>(), pointNode[2].as<float>()
+            );
+        }
+        return spline;
+    }
+
+    static SplineAttachment DeserializeSplineAttachment(const YAML::Node& node)
+    {
+        SplineAttachment splineAttachment;
+        splineAttachment.T = node["T"].as<float>();
+        splineAttachment.Speed = node["Speed"].as<float>();
+
+        return splineAttachment;
+    }
 }

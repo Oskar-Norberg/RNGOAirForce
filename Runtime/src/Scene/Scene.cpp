@@ -73,6 +73,18 @@ namespace RNGOEngine::Core
         {
             Components::SerializePointLight(emitter);
         }
+
+        // Project Specific
+        if (registry.any_of<Components::Spline>(entity))
+        {
+            Components::SerializeSpline(registry.get<Components::Spline>(entity), emitter);
+        }
+        if (registry.any_of<Components::SplineAttachment>(entity))
+        {
+            Components::SerializeSplineAttachment(
+                registry.get<Components::SplineAttachment>(entity), emitter
+            );
+        }
     }
 
     static void DeserializeComponents(entt::registry& registry, const entt::entity entity, YAML::Node& node)
@@ -145,6 +157,17 @@ namespace RNGOEngine::Core
         if (node["PointLight"])
         {
             registry.emplace<Components::PointLight>(entity);
+        }
+        // Project Specific
+        if (node["Spline"])
+        {
+            auto spline = Components::DeserializeSpline(node["Spline"]);
+            registry.emplace<Components::Spline>(entity, spline);
+        }
+        if (node["SplineAttachment"])
+        {
+            auto splineAttachment = Components::DeserializeSplineAttachment(node["SplineAttachment"]);
+            registry.emplace<Components::SplineAttachment>(entity, splineAttachment);
         }
     }
 

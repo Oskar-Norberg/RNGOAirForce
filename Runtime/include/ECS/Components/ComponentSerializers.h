@@ -124,4 +124,25 @@ namespace RNGOEngine::Components
     {
         emitter << YAML::Key << "PointLight" << YAML::Value << true;
     }
+
+    // Project Specific Serializers
+    static void SerializeSpline(const Spline& spline, YAML::Emitter& emitter)
+    {
+        emitter << YAML::Key << "Spline" << YAML::Value << YAML::BeginMap;
+        emitter << YAML::Key << "ControlPoints" << YAML::Value << YAML::BeginSeq;
+        for (const auto& point : spline.Points)
+        {
+            emitter << YAML::Flow << YAML::BeginSeq << point.x << point.y << point.z << YAML::EndSeq;
+        }
+        emitter << YAML::EndSeq;
+        emitter << YAML::EndMap;
+    }
+
+    static void SerializeSplineAttachment(const SplineAttachment& attachment, YAML::Emitter& emitter)
+    {
+        emitter << YAML::Key << "SplineAttachment" << YAML::Value << YAML::BeginMap;
+        emitter << YAML::Key << "T" << YAML::Value << attachment.T;
+        emitter << YAML::Key << "Speed" << YAML::Value << attachment.Speed;
+        emitter << YAML::EndMap;
+    }
 }

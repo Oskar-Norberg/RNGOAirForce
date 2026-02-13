@@ -16,6 +16,8 @@
 #include "ECS/Systems/Core/Rendering/Debug/RenderDebugCollisionsSystem.h"
 #include "ECS/Systems/Core/Rendering/EndFrameSystem.h"
 #include "ECS/Systems/Core/Rendering/RenderSystem.h"
+#include "ECS/Systems/Project/SplineAttachmentSystem.h"
+#include "ECS/Systems/Project/SplineMovementSystem.h"
 #include "Renderer/API/Passes/DirectionalShadowMapPass.h"
 #include "Renderer/API/Passes/ForwardPass.h"
 #include "Renderer/API/Passes/ForwardScreenPass.h"
@@ -119,6 +121,7 @@ namespace RNGOEngine
         m_assetLoader->LoadPendingAssets(Data::ThreadType::Render);
 
         AddEngineSystems();
+        AddGameSystems();
         SetupSystemContexts();
     }
 
@@ -265,5 +268,13 @@ namespace RNGOEngine
         m_engineSystems.RegisterSystem<Systems::Core::RenderDebugCollidersSystem>();
         m_engineSystems.RegisterSystem<Systems::Core::RenderDebugCollisionsSystem>();
         m_engineSystems.RegisterSystem<Systems::Core::EndFrameSystem>();
+
+        // Project Specific
+        m_engineSystems.RegisterSystem<Systems::Project::SplineAttachmentSystem>();
+    }
+
+    void Application::AddGameSystems()
+    {
+        m_gameSystems.RegisterSystem<Systems::Project::SplineMovementSystem>();
     }
 }

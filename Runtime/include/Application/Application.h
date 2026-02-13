@@ -129,5 +129,6 @@ namespace RNGOEngine
     private:
         void SetupSystemContexts();
         void AddEngineSystems();
+        void AddGameSystems();
     };
 }

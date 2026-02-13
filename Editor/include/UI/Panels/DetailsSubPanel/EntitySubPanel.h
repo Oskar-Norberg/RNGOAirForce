@@ -84,6 +84,9 @@ namespace RNGOEngine::Editor
             DrawComponent<Components::DirectionalLight>(registry, selectedEntity);
             DrawComponent<Components::PointLight>(registry, selectedEntity);
             DrawComponent<Components::Spotlight>(registry, selectedEntity);
+            // Project Specific
+            DrawComponent<Components::Spline>(registry, selectedEntity);
+            DrawComponent<Components::SplineAttachment>(registry, selectedEntity);
 
             if (ImGui::Button("Add Component"))
             {
@@ -107,6 +110,9 @@ namespace RNGOEngine::Editor
                 DrawAddComponent<Components::DirectionalLight>(registry, selectedEntity, "DirectionalLight");
                 DrawAddComponent<Components::PointLight>(registry, selectedEntity, "PointLight");
                 DrawAddComponent<Components::Spotlight>(registry, selectedEntity, "Spotlight");
+                // Project Specific
+                DrawAddComponent<Components::Spline>(registry, selectedEntity, "Spline");
+                DrawAddComponent<Components::SplineAttachment>(registry, selectedEntity, "SplineAttachment");
 
                 ImGui::EndPopup();
             }
