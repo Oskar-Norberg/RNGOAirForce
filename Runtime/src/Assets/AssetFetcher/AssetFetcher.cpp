@@ -1,0 +1,82 @@
+﻿//
+// Created by Oskar.Norberg on 2025-09-03.
+//
+
+#include "Assets/AssetFetcher/AssetFetcher.h"
+
+#include "Utilities/IO/SimpleFileReader/SimpleFileReader.h"
+#include "Utilities/RNGOAsserts.h"
+
+namespace RNGOEngine::AssetHandling
+{
+    AssetFetcher::AssetFetcher()
+        : Singleton(this)
+    {
+        AddAssetPath(ENGINE_ASSETS_DIR);
+        AddAssetPath(ENGINE_FALLBACKS_DIR);
+
+        AddAssetPath(ENGINE_SHADERS_DIR);
+        AddAssetPath(ENGINE_SHADER_INCLUDE_DIR);
+
+        AddAssetPath(ENGINE_MODELS_DIR);
+        AddAssetPath(ENGINE_TEXTURES_DIR);
+    }
+
+    std::optional<std::filesystem::path> AssetFetcher::GetPath(const std::filesystem::path& path) const
+    {
+        // First try relative to CWD.
+        if (Utilities::IO::FileExists(path))
+        {
+            return path;
+        }
+
+        // Then inside registered paths
+        for (const auto& includeDirectory : m_assetPaths)
+        {
+            const std::filesystem::path fullAssetPath = includeDirectory / path;
+
+            if (Utilities::IO::FileExists(fullAssetPath))
+            {
+                return fullAssetPath;
+            }
+        }
+
+        return std::nullopt;
+    }
+
+    void AssetFetcher::AddAssetPath(const std::filesystem::path& path)
+    {
+        m_assetPaths.emplace_back(path);
+    }
+
+    void AssetFetcher::ForEachOfExtension(
+        const std::string_view extension, const std::function<void(const std::filesystem::path&)>& callback
+    )
+    {
+        const std::filesystem::path ext{extension};
+
+        for (const auto& pathCollection : m_assetPaths)
+        {
+            for (const auto& root : pathCollection)
+            {
+                if (!std::filesystem::exists(root) || !std::filesystem::is_directory(root))
+                {
+                    continue;
+                }
+
+                for (const auto& entry : std::filesystem::recursive_directory_iterator(root))
+                {
+                    if (!entry.is_regular_file())
+                    {
+                        continue;
+                    }
+
+                    if (entry.path().extension() == ext)
+                    {
+                        callback(entry.path());
+                    }
+                }
+            }
+        }
+    }
+}

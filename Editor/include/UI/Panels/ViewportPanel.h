@@ -1,0 +1,71 @@
+﻿//
+// Created by Oskar.Norberg on 2025-11-10.
+//
+
+#pragma once
+
+#include <expected>
+
+#include "Renderer/API/RenderAPI.h"
+#include "UI/IDockablePanel.h"
+#include "entt/entity/entity.hpp"
+
+// NOTE: Cannot be included before imgui.h
+#include "ImGuizmo.h"
+#include "UI/PanelInitializer.h"
+
+namespace RNGOEngine::Editor::Gizmo
+{
+    struct GizmoData;
+}
+namespace RNGOEngine::Editor
+{
+    // TODO: I don't think these should be here. But works for now.
+    struct DrawGizmoContext
+    {
+        ImVec2 StartPos;
+        ImVec2 Size;
+
+        entt::entity TargetEntity;
+        entt::entity CameraEntity;
+
+        UIContext& Context;
+    };
+
+    enum class GizmoContextError
+    {
+        None,
+        NoTargetEntity,
+        NoCameraEntity,
+        TargetMissingTransform,
+        CameraMissingTransform,
+    };
+
+    class ViewPortPanel : public IDockablePanel
+    {
+    public:
+        // TODO: Add to UIContext, EditorPanels need to be default constructible for the factory.
+        void Initialize(Core::Renderer::RenderAPI& rendererAPI);
+
+    public:
+        void Render(UIContext& context) override;
+
+        std::string_view GetPanelName() const override
+        {
+            return "Viewport";
+        }
+
+    private:
+        std::optional<Containers::GenerationalKey<Resources::RenderTarget>> m_viewportRenderTargetKeyOpt{};
+
+    private:
+        // TODO: I don't think the Gizmo should be drawn in the ViewportPanel. More like it should be a layer over the Viewport. LayerStack?
+        void DrawGizmo(Gizmo::GizmoData& gizmoData, const DrawGizmoContext& context);
+
+    private:
+        std::expected<DrawGizmoContext, GizmoContextError> CreateGizmoContext(
+            UIContext& context, ImVec2 pos, ImVec2 size
+        );
+    };
+    EDITOR_PANEL(ViewPortPanel);
+}

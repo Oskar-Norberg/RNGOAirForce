@@ -1,0 +1,250 @@
+//
+// Created by ringo on 2025-10-05.
+//
+
+#include "Renderer/API/RenderAPI.h"
+
+#include "Assets/AssetManager/Managers/MaterialManager.h"
+#include "Assets/AssetManager/Managers/ShaderManager.h"
+#include "Assets/AssetManager/Managers/TextureManager.h"
+#include "EventQueue/EngineEvents/EngineEvents.h"
+#include "EventQueue/EventQueue.h"
+#include "Logging/Logger.h"
+#include "Renderer/IRenderer.h"
+
+namespace RNGOEngine::Core::Renderer
+{
+    RenderAPI::RenderAPI(IRenderer& renderer, const int width, const int height)
+
+        : m_renderer(renderer), m_context(), m_width(width), m_height(height)
+    {
+        m_renderer.SetViewPortSize(width, height);
+        m_renderer.EnableFeature(
+            // TODO: This cast is so ass.
+            static_cast<RenderFeature>(
+                static_cast<unsigned int>(DepthTesting) | static_cast<unsigned int>(BackFaceCulling) |
+                static_cast<unsigned int>(Blending)
+            )
+        );
+    }
+
+    void RenderAPI::BeginFrame()
+    {
+        // Clear DrawQueue
+        m_context.drawQueue = {};
+        // TODO: Set a variable marking the DrawQueue as writeable.
+        // TODO: In the future this should be multi-threaded and so this should probably switch between a double/tripple-buffered DrawQueue.
+    }
+
+    void RenderAPI::SetCameraData(const CameraData& cameraData)
+    {
+        m_context.drawQueue.Camera = cameraData;
+    }
+
+    void RenderAPI::SetBackgroundColorData(const BackgroundColorData& backgroundColorData)
+    {
+        m_context.drawQueue.BackgroundColor = backgroundColorData;
+    }
+
+    void RenderAPI::SetAmbientLightData(const AmbientLightData& ambientLightData)
+    {
+        m_context.drawQueue.AmbientLight = ambientLightData;
+    }
+
+    void RenderAPI::SetDirectionalLightData(const DirectionalLightData& directionalLightData)
+    {
+        m_context.drawQueue.DirectionalLight = directionalLightData;
+    }
+
+    void RenderAPI::SetPointLightData(std::span<const PointLightData> pointLightData)
+    {
+        m_context.drawQueue.PointLightIndex = pointLightData.size();
+        for (size_t i = 0; i < pointLightData.size(); ++i)
+        {
+            if (i >= Data::Shader::NR_OF_POINTLIGHTS)
+            {
+                RNGO_LOG(
+                    LogLevel::Warning, "Number of point lights ({}) exceeds maximum supported ({}).", i,
+                    Data::Shader::NR_OF_POINTLIGHTS
+                );
+                break;
+            }
+            m_context.drawQueue.PointLights[i] = pointLightData[i];
+        }
+    }
+
+    void RenderAPI::SetSpotlightData(std::span<const SpotlightData> spotlightData)
+    {
+        m_context.drawQueue.SpotlightIndex = spotlightData.size();
+        for (size_t i = 0; i < spotlightData.size(); ++i)
+        {
+            if (i >= Data::Shader::NR_OF_SPOTLIGHTS)
+            {
+                RNGO_LOG(
+                    LogLevel::Warning, "Number of spotlights ({}) exceeds maximum supported ({}).", i,
+                    Data::Shader::NR_OF_SPOTLIGHTS
+                );
+                break;
+            }
+            m_context.drawQueue.Spotlights[i] = spotlightData[i];
+        }
+    }
+
+    void RenderAPI::SubmitDrawable(const Drawable& drawable)
+    {
+        m_context.drawQueue.OpaqueObjects.push_back(drawable);
+    }
+
+    void RenderAPI::EndFrame()
+    {
+        // TODO: Set a variable marking the DrawQueue as read-only.
+        // Doesn't do anything for now.
+    }
+
+    void RenderAPI::RenderToScreen(const int width, const int height)
+    {
+        Render(width, height, std::nullopt);
+    }
+
+    void RenderAPI::RenderToTarget(
+        const int width, const int height, Containers::GenerationalKey<Resources::RenderTarget> targetKey
+    )
+    {
+        const auto renderTarget =
+            Resources::ResourceManager::GetInstance().GetRenderTargetManager().GetRenderTarget(targetKey);
+
+        RNGO_ASSERT(renderTarget && "RenderAPI::RenderToTarget - Invalid Render Target supplied.");
+
+        Render(width, height, renderTarget->get());
+    }
+
+    bool RenderAPI::ListenSendEvents(Events::EventQueue& eventQueue)
+    {
+        const auto resizeEvents = eventQueue.GetEvents<Events::WindowSizeEvent>();
+        for (const auto& [width, height] : resizeEvents)
+        {
+            m_width = width;
+            m_height = height;
+            m_renderer.SetViewPortSize(width, height);
+            for (const auto& pass : m_passes)
+            {
+                pass->OnResize(width, height);
+            }
+        }
+
+        return false;
+    }
+
+    // NOTE: This does not check for existing targets with the same specification.
+    // NOTE: This does not check for empty attachment lists.
+    Containers::GenerationalKey<Resources::RenderTarget> RenderAPI::CreateRenderTarget(
+        const Resources::RenderTargetSpecification& specification, const int width, const int height
+    )
+    {
+        auto& targetManager = Resources::ResourceManager::GetInstance().GetRenderTargetManager();
+        const auto key = targetManager.CreateRenderTarget();
+        m_context.renderPassResources.RegisterRenderTarget(specification.Name, key);
+        m_managedTargets.insert({specification, key});
+
+        for (const auto& attachment : specification.Attachments)
+        {
+            const auto [desiredWidth, desiredHeight] =
+                Resources::GetDesiredAttachmentSize(attachment.Size, width, height);
+
+            // TODO: signedness missmatch
+            const auto attachmentKey = targetManager.CreateFrameBufferAttachment(
+                key, attachment.Format, attachment.AttachmentPoint, desiredWidth, desiredHeight
+            );
+
+            // Add to resource mapper
+            if (std::holds_alternative<Texture2DProperties>(attachment.Format))
+            {
+                m_context.renderPassResources.RegisterTextureAttachment(attachment.Name, attachmentKey);
+            }
+            else if (std::holds_alternative<RenderBufferFormat>(attachment.Format))
+            {
+                m_context.renderPassResources.RegisterRenderBufferAttachment(attachment.Name, attachmentKey);
+            }
+        }
+
+        return key;
+    }
+
+    void RenderAPI::Render(
+        const int width, const int height,
+        std::optional<std::reference_wrapper<Resources::RenderTarget>> target
+    )
+    {
+        // TODO: Add documentation / put this in a configuration file.
+        constexpr std::string_view finalOutputTargetName = "Final Output";
+
+        if (target)
+        {
+            m_context.renderPassResources.RegisterExternalFrameBuffer(
+                finalOutputTargetName, target->get().ID
+            );
+        }
+        else
+        {
+            m_context.renderPassResources.RegisterExternalFrameBuffer(finalOutputTargetName, 0);
+        }
+
+        EnsureTargetSizes(width, height);
+        m_renderer.SetViewPortSize(width, height);
+
+        for (const auto& pass : m_passes)
+        {
+            pass->OnResize(width, height);
+            pass->Execute(m_context);
+        }
+
+        m_context.renderPassResources.DeregisterExternalFramebuffer(finalOutputTargetName);
+        m_renderer.BindFrameBuffer(0);
+    }
+
+    void RenderAPI::EnsureTargetSizes(int width, int height)
+    {
+        for (const auto& [spec, targetKey] : m_managedTargets)
+        {
+            auto& targetManager = Resources::ResourceManager::GetInstance().GetRenderTargetManager();
+            const auto targetOpt = targetManager.GetRenderTarget(targetKey);
+            if (!targetOpt)
+            {
+                continue;
+            }
+
+            const auto& target = targetOpt->get();
+
+            RNGO_ASSERT(
+                spec.Attachments.size() == target.Attachments.size() &&
+                "RenderAPI::EnsureTargetSizes - Mismatched attachment count. Does specification not match "
+                "target?"
+            );
+
+            for (size_t i = 0; i < spec.Attachments.size(); ++i)
+            {
+                const auto attachmentKey = target.Attachments[i];
+                const auto& attachmentSpec = spec.Attachments[i];
+
+                const auto attachmentOpt = targetManager.GetFrameBufferAttachment(attachmentKey);
+                if (!attachmentOpt)
+                {
+                    RNGO_ASSERT(false && "RenderAPI::EnsureTargetSizes - Invalid FrameBufferAttachment.");
+                    continue;
+                }
+
+                auto& attachmentRef = attachmentOpt->get();
+                const auto desiredWidth =
+                    Resources::GetDesiredAttachmentSize(attachmentSpec.Size, width, height);
+
+                // Resize if necessary.
+                if (attachmentRef.width != desiredWidth.first || attachmentRef.height != desiredWidth.second)
+                {
+                    targetManager.ResizeAttachment(
+                        targetKey, attachmentKey, desiredWidth.first, desiredWidth.second
+                    );
+                }
+            }
+        }
+    }
+}
