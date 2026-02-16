@@ -36,7 +36,9 @@ namespace RNGOEngine::Systems::Project
 
             for (const auto& [entity, attachment, transform] : attachmentView.each())
             {
-                transform.Position = selectedSpline->GetPositionAtT(attachment.T);
+                const auto [position, rotation] = selectedSpline->GetTransformAtT(attachment.T);
+                transform.Position = position;
+                transform.Rotation = rotation;
             }
         }
     };

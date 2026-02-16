@@ -132,7 +132,13 @@ namespace RNGOEngine::Components
         emitter << YAML::Key << "Points" << YAML::Value << YAML::BeginSeq;
         for (const auto& point : spline.Points)
         {
-            emitter << YAML::Flow << YAML::BeginSeq << point.x << point.y << point.z << YAML::EndSeq;
+            // Position Vec3
+            emitter << YAML::Flow << YAML::BeginSeq << point.Position.x << point.Position.y
+                    << point.Position.z << YAML::EndSeq;
+
+            // Rotation Quat
+            emitter << YAML::Flow << YAML::BeginSeq << point.Rotation.w << point.Rotation.x
+                    << point.Rotation.y << point.Rotation.z << YAML::EndSeq;
         }
         emitter << YAML::EndSeq;
         emitter << YAML::EndMap;

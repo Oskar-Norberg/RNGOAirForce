@@ -115,23 +115,30 @@ namespace RNGOEngine::Components
     // Project Specific Components
     struct Spline
     {
-        std::vector<glm::vec3> Points;
+        struct SplinePoint
+        {
+            glm::vec3 Position = glm::vec3{0.0f};
+            glm::quat Rotation = glm::quat(1.0f, 0.0f, 0.0f, 0.0f);
+        };
+        std::vector<SplinePoint> Points;
 
-        glm::vec3 GetPositionAtT(const float t) const
+        std::pair<glm::vec3, glm::quat> GetTransformAtT(const float t) const
         {
             if (Points.size() == 1)
             {
-                return Points[0];
+                return std::make_pair(Points[0].Position, Points[0].Rotation);
             }
 
             const float clampedT = glm::clamp(t, 0.0f, 1.0f);
-            const float totalLength = static_cast<float>(Points.size() - 1);
+            const auto totalLength = static_cast<float>(Points.size() - 1);
             const float scaledT = clampedT * totalLength;
             const size_t indexA = glm::floor(scaledT);
             const size_t indexB = glm::min(indexA + 1, Points.size() - 1);
             const float localT = scaledT - static_cast<float>(indexA);
 
-            return glm::mix(Points[indexA], Points[indexB], localT);
+            const auto mixVec = glm::mix(Points[indexA].Position, Points[indexB].Position, localT);
+            const auto mixQuat = glm::slerp(Points[indexA].Rotation, Points[indexB].Rotation, localT);
+            return std::make_pair(mixVec, mixQuat);
         }
     };
 

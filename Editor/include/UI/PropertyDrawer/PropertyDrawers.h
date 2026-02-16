@@ -295,12 +295,18 @@ namespace RNGOEngine::Editor
             for (size_t i = 0; i < spline.Points.size(); ++i)
             {
                 ImGui::PushID(static_cast<int>(i));
-                ImGui::DragFloat3("Point", glm::value_ptr(spline.Points[i]), 0.01f);
+                ImGui::DragFloat3("Point", glm::value_ptr(spline.Points[i].Position), 0.01f);
+                // Rotation
+                glm::vec3 eulerRot = glm::degrees(glm::eulerAngles(spline.Points[i].Rotation));
+                if (ImGui::DragFloat3("Rotation", glm::value_ptr(eulerRot), 0.01f))
+                {
+                    spline.Points[i].Rotation = glm::quat(glm::radians(eulerRot));
+                }
                 ImGui::PopID();
             }
             if (ImGui::Button("Add Point"))
             {
-                spline.Points.emplace_back(0.0f);
+                spline.Points.push_back({});
             }
         }
     }
