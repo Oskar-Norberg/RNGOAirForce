@@ -37,6 +37,7 @@ namespace RNGOEngine::Systems::Core
             auto& transformA = registry.get<Components::Transform>(entityA);
             auto& transformB = registry.get<Components::Transform>(entityB);
 
+            // TODO: Unsafe, assuming entityA/B have rigidbodies.
             auto& rigidbodyA = registry.get<Components::Rigidbody>(entityA);
             auto& rigidbodyB = registry.get<Components::Rigidbody>(entityB);
 

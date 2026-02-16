@@ -51,7 +51,9 @@ namespace RNGOEngine::Systems::Project
         }
 
     private:
-        static void SpawnProjectile(entt::registry& registry, entt::entity firedBy, const Components::Transform& spawnTransform)
+        static void SpawnProjectile(
+            entt::registry& registry, entt::entity firedBy, const Components::Transform& spawnTransform
+        )
         {
             const auto projectileEntity = registry.create();
             registry.emplace<Components::Transform>(projectileEntity, spawnTransform);
@@ -60,6 +62,7 @@ namespace RNGOEngine::Systems::Project
             // Don't worry about it (:
             registry.emplace<Components::Bullet>(projectileEntity, static_cast<uint32_t>(firedBy));
             registry.emplace<Components::DestroyAfter>(projectileEntity, 5.0f);
+            registry.emplace<Components::BoxCollider>(projectileEntity);
         }
     };
 }

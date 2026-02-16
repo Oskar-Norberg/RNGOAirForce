@@ -16,6 +16,7 @@
 #include "ECS/Systems/Core/Rendering/Debug/RenderDebugCollisionsSystem.h"
 #include "ECS/Systems/Core/Rendering/EndFrameSystem.h"
 #include "ECS/Systems/Core/Rendering/RenderSystem.h"
+#include "ECS/Systems/Project/BulletDestructionSystem.h"
 #include "ECS/Systems/Project/BulletMovementSystem.h"
 #include "ECS/Systems/Project/DestroyAfterTimeSystem.h"
 #include "ECS/Systems/Project/ProjectileSpawningSystem.h"
@@ -152,6 +153,7 @@ namespace RNGOEngine
             PollWindowEvents();
 
             OnUpdate(deltaTime);
+
             OnRender();
 
             SwapBuffers();
@@ -168,6 +170,9 @@ namespace RNGOEngine
 
     void Application::OnUpdate(float deltaTime)
     {
+        m_sceneManager.GetCurrentWorld()->DestroyDeferred();
+        m_engineSystemContext.EngineResourceMapper->ClearTransientResources();
+        m_engineSystemContext.GameResourceMapper->ClearTransientResources();
     }
 
     void Application::OnRender()
@@ -261,10 +266,10 @@ namespace RNGOEngine
 
     void Application::AddEngineSystems()
     {
-        m_engineSystems.RegisterSystem<Systems::Core::RigidbodyGravitySystem>();
-        m_engineSystems.RegisterSystem<Systems::Core::RigidbodyApplyForcesSystem>();
+        // m_engineSystems.RegisterSystem<Systems::Core::RigidbodyGravitySystem>();
+        // m_engineSystems.RegisterSystem<Systems::Core::RigidbodyApplyForcesSystem>();
         m_engineSystems.RegisterSystem<Systems::Core::CollisionSystem>();
-        m_engineSystems.RegisterSystem<Systems::Core::RigidbodyCollisionResolutionSystem>();
+        // m_engineSystems.RegisterSystem<Systems::Core::RigidbodyCollisionResolutionSystem>();
 
         m_engineSystems.RegisterSystem<Systems::Core::BeginFrameSystem>();
         m_engineSystems.RegisterSystem<Systems::Core::RenderSystem>();
@@ -281,6 +286,7 @@ namespace RNGOEngine
         m_gameSystems.RegisterSystem<Systems::Project::SplineMovementSystem>();
         m_gameSystems.RegisterSystem<Systems::Project::ProjectileSpawningSystem>();
         m_gameSystems.RegisterSystem<Systems::Project::BulletMovementSystem>();
+        m_gameSystems.RegisterSystem<Systems::Project::BulletDestructionSystem>();
 
 
         m_gameSystems.RegisterSystem<Systems::Project::DestroyAfterTimeSystem>();

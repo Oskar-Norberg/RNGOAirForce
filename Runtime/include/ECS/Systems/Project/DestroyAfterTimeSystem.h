@@ -22,7 +22,8 @@ namespace RNGOEngine::Systems::Project
                 destroyAfter.RemainingTime -= context.DeltaTime;
                 if (destroyAfter.RemainingTime <= 0.0f)
                 {
-                    registry.destroy(entity);
+                    // NOTE: Don't call destroy directly in the registry. Mark for destruction here.
+                    context.SceneManager->GetCurrentWorld()->DestroyEntity(entity);
                 }
             }
         }

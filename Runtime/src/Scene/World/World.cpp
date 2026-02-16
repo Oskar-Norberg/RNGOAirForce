@@ -48,4 +48,13 @@ namespace RNGOEngine::Core
     {
         m_gravity = gravity;
     }
+
+    void World::DestroyDeferred()
+    {
+        for (const auto entity : m_entitiesToDestroy)
+        {
+            m_registry.destroy(entity);
+        }
+        m_entitiesToDestroy.clear();
+    }
 }

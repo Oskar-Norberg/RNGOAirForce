@@ -39,6 +39,12 @@ namespace RNGOEngine::Core
         glm::vec3 GetGravity() const;
         void SetGravity(glm::vec3 gravity);
 
+    public:
+        void DestroyDeferred();
+
+    private:
+        std::vector<entt::entity> m_entitiesToDestroy;
+
     private:
         glm::vec3 m_gravity = {0.0f, -9.82f, 0.0f};
         entt::registry m_registry;
