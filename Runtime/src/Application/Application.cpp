@@ -16,6 +16,9 @@
 #include "ECS/Systems/Core/Rendering/Debug/RenderDebugCollisionsSystem.h"
 #include "ECS/Systems/Core/Rendering/EndFrameSystem.h"
 #include "ECS/Systems/Core/Rendering/RenderSystem.h"
+#include "ECS/Systems/Project/BulletMovementSystem.h"
+#include "ECS/Systems/Project/DestroyAfterTimeSystem.h"
+#include "ECS/Systems/Project/ProjectileSpawningSystem.h"
 #include "ECS/Systems/Project/SplineAttachmentSystem.h"
 #include "ECS/Systems/Project/SplineMovementSystem.h"
 #include "Renderer/API/Passes/DirectionalShadowMapPass.h"
@@ -276,5 +279,10 @@ namespace RNGOEngine
     void Application::AddGameSystems()
     {
         m_gameSystems.RegisterSystem<Systems::Project::SplineMovementSystem>();
+        m_gameSystems.RegisterSystem<Systems::Project::ProjectileSpawningSystem>();
+        m_gameSystems.RegisterSystem<Systems::Project::BulletMovementSystem>();
+
+
+        m_gameSystems.RegisterSystem<Systems::Project::DestroyAfterTimeSystem>();
     }
 }
