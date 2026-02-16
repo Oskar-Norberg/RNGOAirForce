@@ -325,4 +325,24 @@ namespace RNGOEngine::Editor
             ImGui::DragFloat("Speed", &attachment.Speed, 0.01f);
         }
     }
+
+    template<>
+    inline void DrawProperties<Components::PlayerTag>(entt::registry& registry, const entt::entity entity)
+    {
+        if (registry.any_of<Components::PlayerTag>(entity))
+        {
+            ImGui::Text("PlayerTag");
+        }
+    }
+
+    template<>
+    inline void DrawProperties<Components::EnemyTag>(
+        entt::registry& registry, const entt::entity entity
+    )
+    {
+        if (registry.any_of<Components::EnemyTag>(entity))
+        {
+            ImGui::Text("EnemyTag");
+        }
+    }
 }

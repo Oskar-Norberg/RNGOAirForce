@@ -87,6 +87,9 @@ namespace RNGOEngine::Editor
             // Project Specific
             DrawComponent<Components::Spline>(registry, selectedEntity);
             DrawComponent<Components::SplineAttachment>(registry, selectedEntity);
+            DrawComponent<Components::PlayerTag>(registry, selectedEntity);
+            DrawComponent<Components::EnemyTag>(registry, selectedEntity);
+
 
             if (ImGui::Button("Add Component"))
             {
@@ -113,6 +116,8 @@ namespace RNGOEngine::Editor
                 // Project Specific
                 DrawAddComponent<Components::Spline>(registry, selectedEntity, "Spline");
                 DrawAddComponent<Components::SplineAttachment>(registry, selectedEntity, "SplineAttachment");
+                DrawAddComponent<Components::PlayerTag>(registry, selectedEntity, "PlayerTag");
+                DrawAddComponent<Components::EnemyTag>(registry, selectedEntity, "EnemyTag");
 
                 ImGui::EndPopup();
             }

@@ -149,4 +149,12 @@ namespace RNGOEngine::Components
         // How many % of the spline should be covered per second.
         float Speed = 0.01f;
     };
+
+    struct PlayerTag
+    {
+    };
+
+    struct EnemyTag
+    {
+    };
 }

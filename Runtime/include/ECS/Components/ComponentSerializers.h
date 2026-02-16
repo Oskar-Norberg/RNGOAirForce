@@ -151,4 +151,14 @@ namespace RNGOEngine::Components
         emitter << YAML::Key << "Speed" << YAML::Value << attachment.Speed;
         emitter << YAML::EndMap;
     }
+
+    static void SerializePlayerTag(YAML::Emitter& emitter)
+    {
+        emitter << YAML::Key << "PlayerTag" << YAML::Value << true;
+    }
+
+    static void SerializeEnemyTag(YAML::Emitter& emitter)
+    {
+        emitter << YAML::Key << "EnemyTag" << YAML::Value << true;
+    }
 }

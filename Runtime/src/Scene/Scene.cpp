@@ -85,6 +85,15 @@ namespace RNGOEngine::Core
                 registry.get<Components::SplineAttachment>(entity), emitter
             );
         }
+
+        if (registry.any_of<Components::PlayerTag>(entity))
+        {
+            Components::SerializePlayerTag(emitter);
+        }
+        if (registry.any_of<Components::EnemyTag>(entity))
+        {
+            Components::SerializeEnemyTag(emitter);
+        }
     }
 
     static void DeserializeComponents(entt::registry& registry, const entt::entity entity, YAML::Node& node)
@@ -168,6 +177,14 @@ namespace RNGOEngine::Core
         {
             auto splineAttachment = Components::DeserializeSplineAttachment(node["SplineAttachment"]);
             registry.emplace<Components::SplineAttachment>(entity, splineAttachment);
+        }
+        if (node["PlayerTag"])
+        {
+            registry.emplace<Components::PlayerTag>(entity);
+        }
+        if (node["EnemyTag"])
+        {
+            registry.emplace<Components::EnemyTag>(entity);
         }
     }
 
