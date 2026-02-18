@@ -6,6 +6,7 @@
 
 #include "ECS/Systems/SystemContext.h"
 #include "Math/3D/AABB3D.h"
+#include "Math/3D/CollisionChecks.h"
 #include "Scene/World/World.h"
 
 namespace RNGOEngine::Systems::Core
@@ -41,19 +42,19 @@ namespace RNGOEngine::Systems::Core
                     continue;
                 }
 
-                if (glm::length(transformA.Position - transformB.Position) <= sphereA.Radius + sphereB.Radius)
-                {
-                    const auto contactPoint = (transformA.Position + transformB.Position) / 2.0f;
-                    const auto contactNormal = glm::normalize(transformB.Position - transformA.Position);
-                    const auto penetrationDepth = (sphereA.Radius + sphereB.Radius) -
-                                                  glm::length(transformA.Position - transformB.Position);
+                const auto collisionDataOpt = Math::SphereToSphereCollision(
+                    {.Center = transformA.Position, .Radius = sphereA.Radius},
+                    {.Center = transformB.Position, .Radius = sphereB.Radius}
+                );
 
-                    CollisionData collisionData = {
+                if (collisionDataOpt)
+                {
+                    EntityCollisionData collisionData = {
                         .EntityA = entityA,
                         .EntityB = entityB,
-                        .ContactPoint = contactPoint,
-                        .ContactNormal = contactNormal,
-                        .PenetrationDepth = penetrationDepth,
+                        .ContactPoint = collisionDataOpt->ContactPoint,
+                        .ContactNormal = collisionDataOpt->ContactNormal,
+                        .PenetrationDepth = collisionDataOpt->PenetrationDepth,
                     };
                     collisions.collisions.emplace_back(collisionData);
                 }
@@ -77,26 +78,20 @@ namespace RNGOEngine::Systems::Core
                     continue;
                 }
 
-                const glm::vec3 minA = transformA.Position - boxA.HalfExtents;
-                const glm::vec3 maxA = transformA.Position + boxA.HalfExtents;
-                const glm::vec3 minB = transformB.Position - boxB.HalfExtents;
-                const glm::vec3 maxB = transformB.Position + boxB.HalfExtents;
+                const auto collisionDataOpt = Math::BoxToBoxCollision(
+                    {.Center = transformA.Position, .HalfExtents = boxA.HalfExtents},
+                    {.Center = transformB.Position, .HalfExtents = boxB.HalfExtents}
+                );
 
-                const Math::AABB3D<float> aabbA{{minA.x, minA.y, minA.z}, {maxA.x, maxA.y, maxA.z}};
-                const Math::AABB3D<float> aabbB{{minB.x, minB.y, minB.z}, {maxB.x, maxB.y, maxB.z}};
-
-                if (aabbA.Intersects(aabbB))
+                if (collisionDataOpt)
                 {
-                    const auto contactPoint = (transformA.Position + transformB.Position) / 2.0f;
-                    const auto contactNormal = glm::normalize(transformB.Position - transformA.Position);
-                    const auto penetrationDepth = glm::length(glm::min(maxA, maxB) - glm::max(minA, minB));
-
-                    CollisionData collisionData = {
+                    // TODO: Slightly unseemly chunk of code duplication, move into helper function.
+                    EntityCollisionData collisionData = {
                         .EntityA = entityA,
                         .EntityB = entityB,
-                        .ContactPoint = contactPoint,
-                        .ContactNormal = contactNormal,
-                        .PenetrationDepth = penetrationDepth,
+                        .ContactPoint = collisionDataOpt->ContactPoint,
+                        .ContactNormal = collisionDataOpt->ContactNormal,
+                        .PenetrationDepth = collisionDataOpt->PenetrationDepth,
                     };
                     collisions.collisions.emplace_back(collisionData);
                 }
@@ -115,27 +110,20 @@ namespace RNGOEngine::Systems::Core
         {
             for (const auto& [sphereEntity, sphereTransform, sphereCollider] : sphereView.each())
             {
-                const glm::vec3 boxMin = boxTransform.Position - boxCollider.HalfExtents;
-                const glm::vec3 boxMax = boxTransform.Position + boxCollider.HalfExtents;
-
-                const glm::vec3 closestPoint = glm::clamp(sphereTransform.Position, boxMin, boxMax);
-
-                const float distanceSquared = glm::dot(
-                    closestPoint - sphereTransform.Position, closestPoint - sphereTransform.Position
+                const auto collisionDataOpt = Math::SphereToBoxCollision(
+                    {sphereTransform.Position, sphereCollider.Radius},
+                    {boxTransform.Position, boxCollider.HalfExtents}
                 );
 
-                if (distanceSquared <= sphereCollider.Radius * sphereCollider.Radius)
+                if (collisionDataOpt)
                 {
-                    const auto contactPoint = closestPoint;
-                    const auto contactNormal = glm::normalize(sphereTransform.Position - closestPoint);
-                    const auto penetrationDepth = sphereCollider.Radius - glm::sqrt(distanceSquared);
-
-                    CollisionData collisionData = {
-                        .EntityA = boxEntity,
-                        .EntityB = sphereEntity,
-                        .ContactPoint = contactPoint,
-                        .ContactNormal = contactNormal,
-                        .PenetrationDepth = penetrationDepth,
+                    // TODO: Slightly unseemly chunk of code duplication, move into helper function.
+                    EntityCollisionData collisionData = {
+                        .EntityA = sphereEntity,
+                        .EntityB = boxEntity,
+                        .ContactPoint = collisionDataOpt->ContactPoint,
+                        .ContactNormal = collisionDataOpt->ContactNormal,
+                        .PenetrationDepth = collisionDataOpt->PenetrationDepth,
                     };
                     collisions.collisions.emplace_back(collisionData);
                 }

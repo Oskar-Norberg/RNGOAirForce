@@ -11,7 +11,7 @@
 
 namespace RNGOEngine::Systems::Core
 {
-    struct CollisionData
+    struct EntityCollisionData
     {
         entt::entity EntityA;
         entt::entity EntityB;
@@ -23,7 +23,7 @@ namespace RNGOEngine::Systems::Core
 
     struct CollisionList
     {
-        std::vector<CollisionData> collisions;
+        std::vector<EntityCollisionData> collisions;
     };
 
     // TODO: Broadphase
