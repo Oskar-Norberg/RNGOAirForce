@@ -11,9 +11,6 @@ namespace RNGOEngine::Editor
     class FreeFlyCameraSystem : public IEditorSystem
     {
     public:
-        ~FreeFlyCameraSystem() override
-        {
-        }
         void Update(Core::World& world, EditorSystemContext& context) override;
 
     private:

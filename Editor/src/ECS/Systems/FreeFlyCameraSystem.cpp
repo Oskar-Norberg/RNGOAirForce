@@ -4,9 +4,9 @@
 
 #include "ECS/Systems/FreeFlyCameraSystem.h"
 
-#include "ECS/Components/Components.h"
 #include "Data/KeyCodes.h"
 #include "Data/MouseCodes.h"
+#include "ECS/Components/Components.h"
 #include "ECS/Systems/SystemContext.h"
 #include "Scene/World/World.h"
 
@@ -16,6 +16,11 @@ namespace RNGOEngine::Editor
     void FreeFlyCameraSystem::Update(Core::World& world, EditorSystemContext& context)
     {
         IEditorSystem::Update(world, context);
+
+        if (context.IsPlayMode)
+        {
+            return;
+        }
 
         auto& inputManager = *context.inputManager;
 

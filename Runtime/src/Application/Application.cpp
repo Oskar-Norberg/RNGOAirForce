@@ -20,6 +20,7 @@
 #include "ECS/Systems/Project/BulletMovementSystem.h"
 #include "ECS/Systems/Project/DestroyAfterTimeSystem.h"
 #include "ECS/Systems/Project/ProjectileSpawningSystem.h"
+#include "ECS/Systems/Project/RailsShooterCameraSystem.h"
 #include "ECS/Systems/Project/SetCameraPosToPlayerSystem.h"
 #include "ECS/Systems/Project/SplineAttachmentSystem.h"
 #include "ECS/Systems/Project/SplineMovementSystem.h"
@@ -292,5 +293,7 @@ namespace RNGOEngine
         m_gameSystems.RegisterSystem<Systems::Project::DestroyAfterTimeSystem>();
 
         m_gameSystems.RegisterSystem<Systems::Project::SetCameraPosToPlayerSystem>();
+        m_gameSystems.RegisterSystem<Systems::Project::RailsShooterCameraSystem>();
+
     }
 }

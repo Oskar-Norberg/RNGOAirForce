@@ -44,8 +44,7 @@ namespace RNGOEngine::Editor
     {
         // Should be a time-span, but for now we use a float.
         float deltaTime = 0.0f;
-
-        
+        bool IsPlayMode = false;
 
         // TODO: Ugly pointer bonanza over here
         Systems::Resources::ResourceMapper* engineResourceMapper = nullptr;

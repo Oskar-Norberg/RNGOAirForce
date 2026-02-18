@@ -89,6 +89,7 @@ namespace RNGOEngine::Editor
 
     void Editor::UpdateEditorSystems(const float deltaTime)
     {
+        m_editorSystemContext.IsPlayMode = (m_editorPlayState == EditorPlayState::Play);
         m_editorSystemContext.deltaTime = deltaTime;
         m_editorSystems.Update(*m_sceneManager.GetCurrentWorld(), m_editorSystemContext);
     }
