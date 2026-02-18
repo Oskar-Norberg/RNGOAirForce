@@ -34,6 +34,10 @@ namespace RNGOEngine::Core
             return m_registry;
         }
 
+        // Linetrace
+    public:
+
+
         // Gravity
     public:
         glm::vec3 GetGravity() const;
