@@ -40,13 +40,8 @@ namespace RNGOEngine::Systems::Project
 
             for (const auto& [cameraEntity, cameraTransform, camera] : cameraView.each())
             {
-                const auto offset = glm::vec3{0};
-                const auto playerPos = playerTransform.Position + offset;
-
-                // Make camera face player's forward vector
-                glm::vec3 forward = playerTransform.Rotation * glm::vec3(0.0f, 0.0f, 1.0f);
-                cameraTransform.Position = playerPos;
-                cameraTransform.Rotation = glm::quatLookAt(forward, glm::vec3(0.0f, 1.0f, 0.0f));
+                // Could add offset here if needed.
+                cameraTransform.Position = playerTransform.Position;
             }
         }
     };

@@ -20,33 +20,40 @@ namespace RNGOEngine::Systems::Project
         void Update(RNGOEngine::Core::World& world, SystemContext& context) override
         {
             auto& registry = world.GetRegistry();
-            entt::entity playerEntity{entt::null};
+            entt::entity playerID{entt::null};
+            entt::entity playerCameraID{entt::null};
 
             const auto playerView = registry.view<Components::PlayerTag>();
             for (const auto& entity : playerView)
             {
-                playerEntity = entity;
+                playerID = entity;
+            }
+
+            const auto cameraView = registry.view<Components::Camera>();
+            for (const auto& entity : cameraView)
+            {
+                playerCameraID = entity;
             }
 
             // No player found.
-            if (playerEntity == entt::null)
+            if (playerCameraID == entt::null || playerID == entt::null)
             {
                 return;
             }
 
-            // Malformed player (no transform)
-            if (!registry.any_of<Components::Transform>(playerEntity))
+            // Malformed PlayerCamera (no transform)
+            if (!registry.any_of<Components::Transform>(playerCameraID))
             {
                 return;
             }
 
-            const auto& playerTransform = registry.get<Components::Transform>(playerEntity);
+            const auto& playerCameraTransform = registry.get<Components::Transform>(playerCameraID);
 
             if (context.InputManager->WasMouseButtonPressedThisFrame(
                     Data::MouseCodes::RNGO_MOUSE_BUTTON_LEFT
                 ))
             {
-                SpawnProjectile(registry, playerEntity, playerTransform);
+                SpawnProjectile(registry, playerID, playerCameraTransform);
             }
         }
 
@@ -55,8 +62,11 @@ namespace RNGOEngine::Systems::Project
             entt::registry& registry, entt::entity firedBy, const Components::Transform& spawnTransform
         )
         {
+            Components::Transform rotatedTransform = spawnTransform;
+            rotatedTransform.Rotation *= glm::angleAxis(glm::radians(180.0f), glm::vec3(0, 1, 0));
+
             const auto projectileEntity = registry.create();
-            registry.emplace<Components::Transform>(projectileEntity, spawnTransform);
+            registry.emplace<Components::Transform>(projectileEntity, rotatedTransform);
             registry.emplace<Components::MeshRenderer>(projectileEntity);
 
             // Don't worry about it (:
