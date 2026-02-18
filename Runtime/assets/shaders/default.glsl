@@ -61,14 +61,14 @@ void main()
 {
     vec3 normal = normalize(Normal);
     LightAccumulation lightAccumulation = GetLight(FragPos, normal, specularStrength, shininess, viewPosition);
-    float shadow = CalculateShadows(normal, directionalLight.direction, FragPosLightSpace);
+    // temporarily disable shadows because the shadow mapping sux
+    //float shadow = CalculateShadows(normal, directionalLight.direction, FragPosLightSpace);
 
     vec4 albedoTexture = texture(ALBEDO_TEXTURE, TexCoord);
     vec4 specularTexture = texture(SPECULAR_TEXTURE, TexCoord);
 
     vec3 lighting =
-    lightAccumulation.ambient.rgb * albedoTexture.rgb +
-    (1.0 - shadow) * (
+    lightAccumulation.ambient.rgb * albedoTexture.rgb + (
         lightAccumulation.diffuse.rgb * albedoTexture.rgb +
         lightAccumulation.specular * specularTexture.rgb
     );

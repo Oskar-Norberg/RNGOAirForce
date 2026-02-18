@@ -20,6 +20,7 @@
 #include "ECS/Systems/Project/BulletMovementSystem.h"
 #include "ECS/Systems/Project/DestroyAfterTimeSystem.h"
 #include "ECS/Systems/Project/ProjectileSpawningSystem.h"
+#include "ECS/Systems/Project/SetCameraPosToPlayerSystem.h"
 #include "ECS/Systems/Project/SplineAttachmentSystem.h"
 #include "ECS/Systems/Project/SplineMovementSystem.h"
 #include "Renderer/API/Passes/DirectionalShadowMapPass.h"
@@ -261,7 +262,7 @@ namespace RNGOEngine
         gameContext.InputManager = &m_inputManager;
         gameContext.JobSystem = &m_jobSystem;
         gameContext.EventQueue = &m_eventQueue;
-        engineContext.AssetManager = m_assetManager.get();
+        gameContext.AssetManager = m_assetManager.get();
     }
 
     void Application::AddEngineSystems()
@@ -284,11 +285,12 @@ namespace RNGOEngine
     void Application::AddGameSystems()
     {
         m_gameSystems.RegisterSystem<Systems::Project::SplineMovementSystem>();
+
         m_gameSystems.RegisterSystem<Systems::Project::ProjectileSpawningSystem>();
         m_gameSystems.RegisterSystem<Systems::Project::BulletMovementSystem>();
         m_gameSystems.RegisterSystem<Systems::Project::BulletDestructionSystem>();
-
-
         m_gameSystems.RegisterSystem<Systems::Project::DestroyAfterTimeSystem>();
+
+        m_gameSystems.RegisterSystem<Systems::Project::SetCameraPosToPlayerSystem>();
     }
 }

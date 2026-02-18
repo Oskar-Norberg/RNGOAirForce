@@ -162,7 +162,7 @@ namespace RNGOEngine::Components
     {
         // Don't ask me why this is storing a uint32_t instead of an entt::entity. Just don't worry about it.
         std::uint32_t Owner;
-        float Speed = 10.0f;
+        float Speed = 1000.0f;
     };
 
     struct DestroyAfter

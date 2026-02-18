@@ -37,8 +37,16 @@ namespace RNGOEngine::Systems::Project
             for (const auto& [entity, attachment, transform] : attachmentView.each())
             {
                 const auto [position, rotation] = selectedSpline->GetTransformAtT(attachment.T);
+
                 transform.Position = position;
                 transform.Rotation = rotation;
+
+                if (attachment.Speed < 0.0f)
+                {
+                    // Rotate backwards.
+                    transform.Rotation = glm::angleAxis(glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)) *
+                                         transform.Rotation;
+                }
             }
         }
     };
