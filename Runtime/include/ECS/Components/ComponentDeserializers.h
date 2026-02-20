@@ -127,8 +127,8 @@ namespace RNGOEngine::Components
     {
         Name name;
 
-        std::string nameStr = node["Name"].as<std::string>();
-        std::copy(nameStr.begin(), nameStr.end(), name.NameArr.begin());
+        auto nameStr = node["Name"].as<std::string>();
+        std::ranges::copy(nameStr, name.NameArr.begin());
         name.NameArr[std::min(nameStr.size(), name.NameArr.size() - 1)] = '\0';
 
         return name;
@@ -164,5 +164,16 @@ namespace RNGOEngine::Components
         splineAttachment.Speed = node["Speed"].as<float>();
 
         return splineAttachment;
+    }
+
+    static SceneTarget DeserializeSceneTarget(const YAML::Node& node)
+    {
+        SceneTarget sceneTarget;
+
+        auto nameStr = node["SceneName"].as<std::string>();
+        std::ranges::copy(nameStr, sceneTarget.SceneNameArr.begin());
+        sceneTarget.SceneNameArr[std::min(nameStr.size(), sceneTarget.SceneNameArr.size() - 1)] = '\0';
+
+        return sceneTarget;
     }
 }

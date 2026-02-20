@@ -94,6 +94,19 @@ namespace RNGOEngine::Core
         {
             Components::SerializeEnemyTag(emitter);
         }
+
+        if (registry.any_of<Components::SceneTarget>(entity))
+        {
+            Components::SerializeSceneTarget(registry.get<Components::SceneTarget>(entity), emitter);
+        }
+        if (registry.any_of<Components::TriggerSceneLoadOnPlayerCollision>(entity))
+        {
+            Components::SerializeTriggerSceneLoadOnPlayerCollision(emitter);
+        }
+        if (registry.any_of<Components::TriggerSceneLoadOnShotByPlayer>(entity))
+        {
+            Components::SerializeTriggerSceneLoadOnShotByPlayer(emitter);
+        }
     }
 
     static void DeserializeComponents(entt::registry& registry, const entt::entity entity, YAML::Node& node)
@@ -185,6 +198,22 @@ namespace RNGOEngine::Core
         if (node["EnemyTag"])
         {
             registry.emplace<Components::EnemyTag>(entity);
+        }
+
+        if (node["SceneTarget"])
+        {
+            auto target = Components::DeserializeSceneTarget(node["SceneTarget"]);
+            registry.emplace<Components::SceneTarget>(entity, target);
+        }
+
+        if (node["TriggerSceneLoadOnPlayerCollision"])
+        {
+            registry.emplace<Components::TriggerSceneLoadOnPlayerCollision>(entity);
+        }
+
+        if (node["TriggerSceneLoadOnShotByPlayer"])
+        {
+            registry.emplace<Components::TriggerSceneLoadOnShotByPlayer>(entity);
         }
     }
 

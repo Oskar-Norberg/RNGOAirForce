@@ -89,7 +89,9 @@ namespace RNGOEngine::Editor
             DrawComponent<Components::SplineAttachment>(registry, selectedEntity);
             DrawComponent<Components::PlayerTag>(registry, selectedEntity);
             DrawComponent<Components::EnemyTag>(registry, selectedEntity);
-
+            DrawComponent<Components::SceneTarget>(registry, selectedEntity);
+            DrawComponent<Components::TriggerSceneLoadOnPlayerCollision>(registry, selectedEntity);
+            DrawComponent<Components::TriggerSceneLoadOnShotByPlayer>(registry, selectedEntity);
 
             if (ImGui::Button("Add Component"))
             {
@@ -118,6 +120,13 @@ namespace RNGOEngine::Editor
                 DrawAddComponent<Components::SplineAttachment>(registry, selectedEntity, "SplineAttachment");
                 DrawAddComponent<Components::PlayerTag>(registry, selectedEntity, "PlayerTag");
                 DrawAddComponent<Components::EnemyTag>(registry, selectedEntity, "EnemyTag");
+                DrawAddComponent<Components::SceneTarget>(registry, selectedEntity, "SceneTarget");
+                DrawAddComponent<Components::TriggerSceneLoadOnPlayerCollision>(
+                    registry, selectedEntity, "TriggerSceneLoadOnPlayerCollision"
+                );
+                DrawAddComponent<Components::TriggerSceneLoadOnShotByPlayer>(
+                    registry, selectedEntity, "TriggerSceneLoadOnShotByPlayer"
+                );
 
                 ImGui::EndPopup();
             }

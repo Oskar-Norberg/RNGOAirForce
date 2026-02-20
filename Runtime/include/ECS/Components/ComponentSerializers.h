@@ -161,4 +161,21 @@ namespace RNGOEngine::Components
     {
         emitter << YAML::Key << "EnemyTag" << YAML::Value << true;
     }
+
+    static void SerializeSceneTarget(const SceneTarget& sceneTarget, YAML::Emitter& emitter)
+    {
+        emitter << YAML::Key << "SceneTarget" << YAML::Value << YAML::BeginMap;
+        emitter << YAML::Key << "SceneName" << YAML::Value << sceneTarget.SceneNameArr.data();
+        emitter << YAML::EndMap;
+    }
+
+    static void SerializeTriggerSceneLoadOnPlayerCollision(YAML::Emitter& emitter)
+    {
+        emitter << YAML::Key << "TriggerSceneLoadOnPlayerCollision" << YAML::Value << true;
+    }
+
+    static void SerializeTriggerSceneLoadOnShotByPlayer(YAML::Emitter& emitter)
+    {
+        emitter << YAML::Key << "TriggerSceneLoadOnShotByPlayer" << YAML::Value << true;
+    }
 }

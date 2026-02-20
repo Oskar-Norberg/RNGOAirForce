@@ -149,6 +149,9 @@ namespace RNGOEngine::Editor
 
             auto& camera = registry.get<Components::Camera>(entity);
             ImGui::DragFloat("FOV", &camera.FOV, 0.1f, 0.1f, 180.0f);
+
+            ImGui::DragFloat("Near Plane", &camera.NearPlane, 0.01f, 0.0f);
+            ImGui::DragFloat("Far Plane", &camera.FarPlane, 0.01f, camera.NearPlane);
         }
     }
 
@@ -336,13 +339,46 @@ namespace RNGOEngine::Editor
     }
 
     template<>
-    inline void DrawProperties<Components::EnemyTag>(
-        entt::registry& registry, const entt::entity entity
-    )
+    inline void DrawProperties<Components::EnemyTag>(entt::registry& registry, const entt::entity entity)
     {
         if (registry.any_of<Components::EnemyTag>(entity))
         {
             ImGui::Text("EnemyTag");
+        }
+    }
+
+    template<>
+    inline void DrawProperties<Components::SceneTarget>(entt::registry& registry, const entt::entity entity)
+    {
+        // TODO: I don't like everything needing to check if the component exists.
+        if (registry.any_of<Components::SceneTarget>(entity))
+        {
+            ImGui::PushID(1294978); // Yes, this sucks.
+            auto& sceneTarget = registry.get<Components::SceneTarget>(entity);
+            ImGui::InputText("Name", sceneTarget.SceneNameArr.data(), Components::SceneTarget::MAX_NR_CHARACTERS);
+            ImGui::PopID();
+        }
+    }
+
+    template<>
+    inline void DrawProperties<Components::TriggerSceneLoadOnPlayerCollision>(
+        entt::registry& registry, const entt::entity entity
+    )
+    {
+        if (registry.any_of<Components::TriggerSceneLoadOnPlayerCollision>(entity))
+        {
+            ImGui::Text("TriggerSceneLoadOnPlayerCollision");
+        }
+    }
+
+    template<>
+    inline void DrawProperties<Components::TriggerSceneLoadOnShotByPlayer>(
+        entt::registry& registry, const entt::entity entity
+    )
+    {
+        if (registry.any_of<Components::TriggerSceneLoadOnShotByPlayer>(entity))
+        {
+            ImGui::Text("TriggerSceneLoadOnShotByPlayer");
         }
     }
 }

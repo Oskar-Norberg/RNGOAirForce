@@ -170,4 +170,19 @@ namespace RNGOEngine::Components
         // Seconds
         float RemainingTime = 0.0f;
     };
+
+    struct SceneTarget
+    {
+        // NOTE: Don't forget .rngoscene
+        static constexpr auto MAX_NR_CHARACTERS = 32 + 1;
+        std::array<char, MAX_NR_CHARACTERS> SceneNameArr;
+    };
+
+    struct TriggerSceneLoadOnPlayerCollision
+    {
+    };
+
+    struct TriggerSceneLoadOnShotByPlayer
+    {
+    };
 }
