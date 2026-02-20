@@ -39,6 +39,11 @@ namespace RNGOEngine::Core
         return m_currentScene;
     }
 
+    void SceneManager::QueueLoadScene(std::unique_ptr<Scene>&& scene)
+    {
+        m_pendingScene = std::move(scene);
+    }
+
     void SceneManager::LoadScene(std::unique_ptr<Scene>&& scene)
     {
         m_currentScene = std::move(scene);

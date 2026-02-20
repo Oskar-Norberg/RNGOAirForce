@@ -15,6 +15,7 @@ namespace RNGOEngine::Core
     public:
         void ClearScene();
 
+        // TODO: Dangerous lava flow
         template<Concepts::DerivedFrom<Scene> T>
         void LoadScene();
 
@@ -25,6 +26,8 @@ namespace RNGOEngine::Core
 
     public:
         const std::unique_ptr<Scene>& GetScene() const;
+        void QueueLoadScene(std::unique_ptr<Scene>&& scene);
+
         void LoadScene(std::unique_ptr<Scene>&& scene);
 
     private:

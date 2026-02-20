@@ -24,6 +24,8 @@
 #include "ECS/Systems/Project/SetCameraPosToPlayerSystem.h"
 #include "ECS/Systems/Project/SplineAttachmentSystem.h"
 #include "ECS/Systems/Project/SplineMovementSystem.h"
+#include "ECS/Systems/Project/TriggerSceneLoadOnPlayerCollisionSystem.h"
+#include "ECS/Systems/Project/TriggerSceneLoadOnShotByPlayerSystem.h"
 #include "Renderer/API/Passes/DirectionalShadowMapPass.h"
 #include "Renderer/API/Passes/ForwardPass.h"
 #include "Renderer/API/Passes/ForwardScreenPass.h"
@@ -294,6 +296,9 @@ namespace RNGOEngine
 
         m_gameSystems.RegisterSystem<Systems::Project::SetCameraPosToPlayerSystem>();
         m_gameSystems.RegisterSystem<Systems::Project::RailsShooterCameraSystem>();
+
+        m_gameSystems.RegisterSystem<Systems::Project::TriggerSceneLoadOnShotByPlayerSystem>();
+        m_gameSystems.RegisterSystem<Systems::Project::TriggerSceneLoadOnPlayerCollisionSystem>();
 
     }
 }
