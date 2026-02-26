@@ -19,6 +19,7 @@
 #include "ECS/Systems/Project/BulletDestructionSystem.h"
 #include "ECS/Systems/Project/BulletMovementSystem.h"
 #include "ECS/Systems/Project/DestroyAfterTimeSystem.h"
+#include "ECS/Systems/Project/PlayerContactGameoverSystem.h"
 #include "ECS/Systems/Project/ProjectileSpawningSystem.h"
 #include "ECS/Systems/Project/RailsShooterCameraSystem.h"
 #include "ECS/Systems/Project/SetCameraPosToPlayerSystem.h"
@@ -299,6 +300,8 @@ namespace RNGOEngine
 
         m_gameSystems.RegisterSystem<Systems::Project::TriggerSceneLoadOnShotByPlayerSystem>();
         m_gameSystems.RegisterSystem<Systems::Project::TriggerSceneLoadOnPlayerCollisionSystem>();
+        m_gameSystems.RegisterSystem<Systems::Project::PlayerContactGameoverSystem>();
+
 
     }
 }

@@ -41,18 +41,19 @@ namespace RNGOEngine::Systems::Project
 
                 if (aIsBullet)
                 {
-                    BulletToNonBulletCollision(world, entityA, entityB);
+                    BulletToNonBulletCollision(world, entityA, entityB, *context.SceneManager);
                 }
                 else if (bIsBullet)
                 {
-                    BulletToNonBulletCollision(world, entityB, entityA);
+                    BulletToNonBulletCollision(world, entityB, entityA, *context.SceneManager);
                 }
             }
         }
 
     private:
         static void BulletToNonBulletCollision(
-            RNGOEngine::Core::World& world, const entt::entity bulletEntity, const entt::entity otherEntity
+            RNGOEngine::Core::World& world, const entt::entity bulletEntity, const entt::entity otherEntity,
+            RNGOEngine::Core::SceneManager& sceneManager
         )
         {
             auto& registry = world.GetRegistry();
@@ -74,11 +75,19 @@ namespace RNGOEngine::Systems::Project
             if (isOwnerPlayer && isOtherEnemy)
             {
                 // TODO: Score count? or some dumb shit?
+                world.DestroyEntity(bulletEntity);
+
                 world.DestroyEntity(otherEntity);
             }
             else if (isOwnerEnemy && isOtherPlayer)
             {
-                // TODO: Game over
+                world.DestroyEntity(bulletEntity);
+
+                auto scene = std::make_unique<RNGOEngine::Core::Scene>();
+                // TODO: Very hardcoded
+                auto yaml = YAML::LoadFile("fumo_spline_menu.rngoscene");
+                scene->Deserialize(yaml);
+                sceneManager.QueueLoadScene(std::move(scene));
                 world.DestroyEntity(otherEntity);
             }
         }
