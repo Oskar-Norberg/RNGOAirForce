@@ -4,12 +4,25 @@
 
 #include "RuntimeBuild.h"
 
+#include <iostream>
+
+#include "Utilities/IO/SimpleFileReader/SimpleFileReader.h"
+
 namespace RNGOEngine::Runtime
 {
     RuntimeBuild::RuntimeBuild(const EngineConfig& config)
         : Application(config)
     {
         auto scene = std::make_unique<RNGOEngine::Core::Scene>();
+
+        if (!Utilities::IO::FileExists("fumo_spline_menu.rngoscene"))
+        {
+            std::cout << "Default Scene not found. Follow troubleshooting step 2" << std::endl;
+            int unused;
+            std::cin >> unused;
+            std::abort();
+        }
+
         auto yaml = YAML::LoadFile("fumo_spline_menu.rngoscene");
         scene->Deserialize(yaml);
         m_sceneManager.LoadScene(std::move(scene));
