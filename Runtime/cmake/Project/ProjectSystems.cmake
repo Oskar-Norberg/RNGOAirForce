@@ -1,5 +1,5 @@
 set(PROJECT_SPECIFIC_SYSTEMS RNGOGame_Systems)
-add_library(${PROJECT_SPECIFIC_SYSTEMS} STATIC
+add_library(${PROJECT_SPECIFIC_SYSTEMS} INTERFACE
         include/ECS/Systems/Project/SplineAttachmentSystem.h
         include/ECS/Systems/Project/SplineMovementSystem.h
         include/ECS/Systems/Project/ProjectileSpawningSystem.h
@@ -11,8 +11,8 @@ add_library(${PROJECT_SPECIFIC_SYSTEMS} STATIC
         include/ECS/Systems/Project/TriggerSceneLoadOnShotByPlayerSystem.h
         include/ECS/Systems/Project/TriggerSceneLoadOnPlayerCollisionSystem.h
 )
-target_include_directories(${PROJECT_SPECIFIC_SYSTEMS} PUBLIC include)
-target_link_libraries(${PROJECT_SPECIFIC_SYSTEMS} PUBLIC EnTT ${SCENE_PROJECT_NAME})
+target_include_directories(${PROJECT_SPECIFIC_SYSTEMS} INTERFACE include)
+target_link_libraries(${PROJECT_SPECIFIC_SYSTEMS} INTERFACE EnTT ${SCENE_PROJECT_NAME})
 target_link_libraries(${PROJECT_SPECIFIC_SYSTEMS} INTERFACE
         ${SCENE_PROJECT_NAME}
         ${SYSTEM_PROJECT_NAME}

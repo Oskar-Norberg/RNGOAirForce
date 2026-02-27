@@ -6,6 +6,8 @@
 
 #define GLM_ENABLE_EXPERIMENTAL
 
+#include <array>
+
 #include <glm/ext/matrix_transform.hpp>
 #include <glm/glm.hpp>
 #include <glm/gtx/quaternion.hpp>
