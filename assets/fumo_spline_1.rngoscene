@@ -1,0 +1,452 @@
+- Transform:
+    Position: [0.689999998, 0, 50]
+    Rotation: [-4.37113847e-08, -4.37113918e-08, 1, -4.37113918e-08]
+    Scale: [1, 1, 1]
+  BoxCollider:
+    HalfExtents: [0.5, 0.5, 0.5]
+  Name:
+    Name: Player
+  SplineAttachment:
+    T: 0
+    Speed: 0.0399999991
+  PlayerTag: true
+- Transform:
+    Position: [0, 0, 0]
+    Rotation: [1, 0, 0, 0]
+    Scale: [1, 1, 1]
+  Color:
+    ColorValue: [1, 1, 1]
+  Intensity:
+    IntensityValue: 0.800000012
+  LightFalloff:
+    Constant: 1
+    Linear: 0.0450000018
+    Quadratic: 0.00749999983
+  Spotlight:
+    CutOff: 0.98480773
+    OuterCutOff: 0.976296008
+  Name:
+    Name: Spotlight
+- Transform:
+    Position: [-1.88362455, 0.563338697, 0.0152535439]
+    Rotation: [1, 0, 0, 0]
+    Scale: [1, 1, 1]
+  Color:
+    ColorValue: [1, 1, 1]
+  Intensity:
+    IntensityValue: 0.800000012
+  LightFalloff:
+    Constant: 1
+    Linear: 0.0450000018
+    Quadratic: 0.00749999983
+  Name:
+    Name: Point Light
+  PointLight: true
+- Transform:
+    Position: [0, 0, 0]
+    Rotation: [0.351647824, 0.835217774, 0.283775449, -0.313411295]
+    Scale: [0.999989569, 1.0000329, 1.00000584]
+  Color:
+    ColorValue: [1, 1, 1]
+  Intensity:
+    IntensityValue: 0.75
+  Name:
+    Name: Directional Light
+  DirectionalLight: true
+- Transform:
+    Position: [0, 0, 0]
+    Rotation: [1, 0, 0, 0]
+    Scale: [1, 1, 1]
+  Color:
+    ColorValue: [1, 1, 1]
+  Intensity:
+    IntensityValue: 0.200000003
+  Name:
+    Name: Ambient Light
+- Transform:
+    Position: [16.1090584, 16.4804173, -86.648056]
+    Rotation: [-0.969652772, 0.111632571, 0.216085032, 0.0248775873]
+    Scale: [1, 1, 1]
+  Camera:
+    FOV: 45
+    NearPlane: 0.100000001
+    FarPlane: 500
+  Name:
+    Name: Camera
+- Transform:
+    Position: [0, 0, 0]
+    Rotation: [1, 0, 0, 0]
+    Scale: [1, 1, 1]
+  Color:
+    ColorValue: [1, 1, 1]
+  Name:
+    Name: Background Color
+  BackgroundColor: true
+- Transform:
+    Position: [1.76470184, 0.563338757, 1.60276413]
+    Rotation: [1, 0, 0, 0]
+    Scale: [1, 1, 1]
+  Color:
+    ColorValue: [1, 1, 1]
+  Intensity:
+    IntensityValue: 0.800000012
+  LightFalloff:
+    Constant: 1
+    Linear: 0.0450000018
+    Quadratic: 0.00749999983
+  Name:
+    Name: Point Light (Copy)
+  PointLight: true
+- MeshRenderer:
+    ModelHandle: 8094657931191181316
+    MaterialKey: 7980601650938824885
+  Transform:
+    Position: [15.5502081, 3.75890431e-06, 26.6929455]
+    Rotation: [0.973489225, 5.2551222e-08, -0.228732929, -3.25542224e-08]
+    Scale: [0.999996841, 1, 0.999997377]
+  BoxCollider:
+    HalfExtents: [0.5, 0.5, 0.5]
+  Name:
+    Name: Enemy (Reimu) (Copy) (Co
+  EnemyTag: true
+- MeshRenderer:
+    ModelHandle: 15914936096690442333
+    MaterialKey: 10164154114613207298
+  Transform:
+    Position: [-76.5690002, -3.28822708, -67.8899994]
+    Rotation: [0.820896566, 0, 0.57107693, 0]
+    Scale: [199.999786, 200, 199.99968]
+  Name:
+    Name: Mountain
+- MeshRenderer:
+    ModelHandle: 4407768983847193316
+    MaterialKey: 5116881967087433417
+  Transform:
+    Position: [0, 0, 0]
+    Rotation: [-0.174516276, 0.174517721, 0.685230315, 0.685235023]
+    Scale: [399.998016, 399.99231, 399.989868]
+  Name:
+    Name: Sphere
+- MeshRenderer:
+    ModelHandle: 15914936096690442333
+    MaterialKey: 10164154114613207298
+  Transform:
+    Position: [122.082649, -3.28823543, -132.246536]
+    Rotation: [0.820896506, 0, 0.571076989, 0]
+    Scale: [300, 300, 300]
+  Name:
+    Name: Mountain (Copy)
+- Transform:
+    Position: [0, 0, 0]
+    Rotation: [1, 0, 0, 0]
+    Scale: [0.999998391, 1, 0.999998391]
+  Name:
+    Name: Spline
+  Spline:
+    Points:
+      - [0.689999998, 0, 50]
+      - [-4.37113847e-08, -4.37113918e-08, 1, -4.37113918e-08]
+      - [2.3499999, 0, 40]
+      - [-4.37113847e-08, -4.37113918e-08, 1, -4.37113918e-08]
+      - [2, 0, 30]
+      - [-4.37113847e-08, 4.37113918e-08, 1, 4.37113918e-08]
+      - [4, 0, 0]
+      - [-4.37113847e-08, -4.37113918e-08, 1, -4.37113918e-08]
+      - [-7.42000008, 0, -15]
+      - [-4.37113847e-08, 4.37113918e-08, 1, 4.37113918e-08]
+      - [-7.42000008, 0, -57.9300003]
+      - [-4.37113847e-08, -4.37113918e-08, 1, -4.37113918e-08]
+      - [21.9899998, -0.100000001, -117.349998]
+      - [4.37000161e-08, 4.37228316e-08, -0.99999994, 0.000261859095]
+      - [48.4500008, 8.5, -117.889999]
+      - [0.707105815, 0.00117496017, 0.707105815, -0.00117496017]
+- MeshRenderer:
+    ModelHandle: 8094657931191181316
+    MaterialKey: 7980601650938824885
+  Transform:
+    Position: [48.4500008, 8.5, -117.889999]
+    Rotation: [-0.707105875, -0.00117496017, 0.707105756, -0.00117496017]
+    Scale: [1, 1, 1]
+  BoxCollider:
+    HalfExtents: [0.5, 0.5, 0.5]
+  Name:
+    Name: Enemy (Reimu)
+  SplineAttachment:
+    T: 1
+    Speed: -0.150000006
+  EnemyTag: true
+- MeshRenderer:
+    ModelHandle: 7929986948965244869
+    MaterialKey: 7033158785983178434
+  Transform:
+    Position: [4.10699987, -4.82000017, -37.1549988]
+    Rotation: [0.721010864, 0, 0.692923784, 0]
+    Scale: [250.000046, 250, 250.000046]
+  Name:
+    Name: House
+- MeshRenderer:
+    ModelHandle: 16601649865803698075
+    MaterialKey: 10164154114613207297
+  Transform:
+    Position: [0, -2, 0]
+    Rotation: [1, 0, 0, 0]
+    Scale: [20, 20, 20]
+  Name:
+    Name: Ground
+- MeshRenderer:
+    ModelHandle: 8094657931191181316
+    MaterialKey: 7980601650938824885
+  Transform:
+    Position: [16.3609123, 0, 15.8779125]
+    Rotation: [0.934967101, 5.63745601e-08, -0.354734421, -2.53628762e-08]
+    Scale: [0.999997079, 1, 0.999997079]
+  BoxCollider:
+    HalfExtents: [0.5, 0.5, 0.5]
+  Name:
+    Name: Enemy (Reimu) (Copy)
+  EnemyTag: true
+- MeshRenderer:
+    ModelHandle: 8094657931191181316
+    MaterialKey: 7980601650938824885
+  Transform:
+    Position: [-12.8986769, -8.55493454e-08, 15.5339823]
+    Rotation: [0.883507431, 1.81445579e-08, 0.468417078, -5.90946883e-08]
+    Scale: [0.999999821, 1, 0.999999821]
+  BoxCollider:
+    HalfExtents: [0.5, 0.5, 0.5]
+  Name:
+    Name: Enemy (Reimu) (Copy) (Co
+  EnemyTag: true
+- MeshRenderer:
+    ModelHandle: 8094657931191181316
+    MaterialKey: 7980601650938824885
+  Transform:
+    Position: [-7.80648184, -5.52425021e-08, 27.8577881]
+    Rotation: [0.883507431, 1.81445579e-08, 0.468417078, -5.90946883e-08]
+    Scale: [0.999999821, 1, 0.999999821]
+  BoxCollider:
+    HalfExtents: [0.5, 0.5, 0.5]
+  Name:
+    Name: Enemy (Reimu) (Copy) (Co
+  EnemyTag: true
+- Transform:
+    Position: [47.9058952, 6.61256361, -117.684311]
+    Rotation: [1, 0, 0, 0]
+    Scale: [1, 1, 1]
+  BoxCollider:
+    HalfExtents: [0.800000012, 4.25, 2.56999993]
+  Name:
+    Name: WinTrigger
+  SceneTarget:
+    SceneName: fumo_spline_win.rngoscene
+  TriggerSceneLoadOnPlayerCollision: true
+- MeshRenderer:
+    ModelHandle: 11621645064487270698
+    MaterialKey: 10412361214613207292
+  Transform:
+    Position: [47.9612961, 3.34493208, -117.554031]
+    Rotation: [1, 0, 0, 0]
+    Scale: [1, 1, 1]
+  Name:
+    Name: NetherPortal
+- MeshRenderer:
+    ModelHandle: 16152206008408495932
+    MaterialKey: 10164154357125207292
+  Transform:
+    Position: [47.808136, 6.03689098, -117.862091]
+    Rotation: [1, 0, 0, 0]
+    Scale: [0.0302981362, 4.67281771, 3.67047405]
+  Name:
+    Name: PortalInside
+- Transform:
+    Position: [43.9360504, 6.03689098, -117.862091]
+    Rotation: [1, 0, 0, 0]
+    Scale: [0.0302981362, 4.67281771, 3.67047405]
+  Color:
+    ColorValue: [1, 0.389999986, 1]
+  Intensity:
+    IntensityValue: 1
+  LightFalloff:
+    Constant: 1
+    Linear: 0.0450000018
+    Quadratic: 0.00749999983
+  Name:
+    Name: PortalLight
+  PointLight: true
+- MeshRenderer:
+    ModelHandle: 8094657931191181316
+    MaterialKey: 7980601650938824885
+  Transform:
+    Position: [3.45694757, 12.1495647, -20.901104]
+    Rotation: [0.991288841, 3.75749032e-08, 0.131705716, -4.90884347e-08]
+    Scale: [0.999990523, 1, 0.999990642]
+  BoxCollider:
+    HalfExtents: [0.5, 0.5, 0.5]
+  Name:
+    Name: Enemy (Reimu) (Copy) (Co
+  EnemyTag: true
+- MeshRenderer:
+    ModelHandle: 8094657931191181316
+    MaterialKey: 7980601650938824885
+  Transform:
+    Position: [47.7822723, 12.973568, -117.63092]
+    Rotation: [0.768200517, 6.15650393e-08, -0.640209377, -5.59428104e-09]
+    Scale: [0.999988139, 1, 0.999988079]
+  BoxCollider:
+    HalfExtents: [0.5, 0.5, 0.5]
+  Name:
+    Name: Enemy (Reimu) (Copy) (Co
+  EnemyTag: true
+- MeshRenderer:
+    ModelHandle: 8094657931191181316
+    MaterialKey: 7980601650938824885
+  Transform:
+    Position: [13.3050003, 0.0864515305, -132.554489]
+    Rotation: [0.999974251, 4.40254837e-08, -0.00717914151, -4.3397268e-08]
+    Scale: [0.999984264, 1, 0.999983788]
+  BoxCollider:
+    HalfExtents: [0.5, 0.5, 0.5]
+  Name:
+    Name: Enemy (Reimu) (Copy) (Co
+  EnemyTag: true
+- MeshRenderer:
+    ModelHandle: 8094657931191181316
+    MaterialKey: 7980601650938824885
+  Transform:
+    Position: [48.4500008, 8.5, -117.889999]
+    Rotation: [-0.707105875, -0.00117496017, 0.707105756, -0.00117496017]
+    Scale: [0.999984264, 1, 0.999983788]
+  BoxCollider:
+    HalfExtents: [0.5, 0.5, 0.5]
+  Name:
+    Name: SplineReimu
+  SplineAttachment:
+    T: 1
+    Speed: -0.0199999996
+  EnemyTag: true
+- MeshRenderer:
+    ModelHandle: 8094657931191181316
+    MaterialKey: 7980601650938824885
+  Transform:
+    Position: [44.7456055, 7.29600143, -117.8144]
+    Rotation: [0.780429542, 0.00107956864, -0.625241876, 0.00103892467]
+    Scale: [0.999984264, 1, 0.999983788]
+  BoxCollider:
+    HalfExtents: [0.5, 0.5, 0.5]
+  Name:
+    Name: SplineReimu (Copy)
+  SplineAttachment:
+    T: 0.980000019
+    Speed: -0.0199999996
+  EnemyTag: true
+- MeshRenderer:
+    ModelHandle: 8094657931191181316
+    MaterialKey: 7980601650938824885
+  Transform:
+    Position: [42.8933983, 6.69399977, -117.776596]
+    Rotation: [0.813607812, 0.00102690468, -0.581412375, 0.00096609199]
+    Scale: [0.999984264, 1, 0.999983788]
+  BoxCollider:
+    HalfExtents: [0.5, 0.5, 0.5]
+  Name:
+    Name: SplineReimu (Copy) (Copy
+  SplineAttachment:
+    T: 0.970000029
+    Speed: -0.0199999996
+  EnemyTag: true
+- MeshRenderer:
+    ModelHandle: 8094657931191181316
+    MaterialKey: 7980601650938824885
+  Transform:
+    Position: [41.0411949, 6.0919981, -117.7388]
+    Rotation: [0.844327509, 0.000971137662, -0.535825968, 0.000890340132]
+    Scale: [0.999984264, 1, 0.999983788]
+  BoxCollider:
+    HalfExtents: [0.5, 0.5, 0.5]
+  Name:
+    Name: SplineReimu (Copy) (Copy
+  SplineAttachment:
+    T: 0.959999979
+    Speed: -0.0199999996
+  EnemyTag: true
+- MeshRenderer:
+    ModelHandle: 8094657931191181316
+    MaterialKey: 7980601650938824885
+  Transform:
+    Position: [-0.0675001144, -0.0250000004, -72.7850037]
+    Rotation: [-1, -6.54975593e-05, -8.74199344e-08, 4.37171153e-08]
+    Scale: [0.999984264, 1, 0.999983788]
+  BoxCollider:
+    HalfExtents: [0.5, 0.5, 0.5]
+  Name:
+    Name: SplineReimu (Copy) (Copy
+  SplineAttachment:
+    T: 0.75
+    Speed: -0.0199999996
+  EnemyTag: true
+- MeshRenderer:
+    ModelHandle: 8094657931191181316
+    MaterialKey: 7980601650938824885
+  Transform:
+    Position: [-2.12619114, -0.0180000309, -68.625618]
+    Rotation: [-1, -4.71705607e-05, -8.74207302e-08, 4.3715513e-08]
+    Scale: [0.999984264, 1, 0.999983788]
+  BoxCollider:
+    HalfExtents: [0.5, 0.5, 0.5]
+  Name:
+    Name: SplineReimu (Copy) (Copy
+  SplineAttachment:
+    T: 0.74000001
+    Speed: -0.0199999996
+  EnemyTag: true
+- MeshRenderer:
+    ModelHandle: 8094657931191181316
+    MaterialKey: 7980601650938824885
+  Transform:
+    Position: [-4.18489599, -0.0110000139, -64.4662094]
+    Rotation: [-1, -2.88434385e-05, -8.7421526e-08, 4.37139107e-08]
+    Scale: [0.999984264, 1, 0.999983788]
+  BoxCollider:
+    HalfExtents: [0.5, 0.5, 0.5]
+  Name:
+    Name: SplineReimu (Copy) (Copy
+  SplineAttachment:
+    T: 0.730000019
+    Speed: -0.0199999996
+  EnemyTag: true
+- MeshRenderer:
+    ModelHandle: 8094657931191181316
+    MaterialKey: 7980601650938824885
+  Transform:
+    Position: [5.00468493, 0.0864515305, -126.744797]
+    Rotation: [0.999974251, 4.40254837e-08, -0.00717914151, -4.3397268e-08]
+    Scale: [0.999984264, 1, 0.999983788]
+  BoxCollider:
+    HalfExtents: [0.5, 0.5, 0.5]
+  Name:
+    Name: Enemy (Reimu) (Copy) (Co
+  EnemyTag: true
+- MeshRenderer:
+    ModelHandle: 8094657931191181316
+    MaterialKey: 7980601650938824885
+  Transform:
+    Position: [8.92504311, 0.0864515305, -128.970688]
+    Rotation: [0.999974251, 4.40254837e-08, -0.00717914151, -4.3397268e-08]
+    Scale: [0.999984264, 1, 0.999983788]
+  BoxCollider:
+    HalfExtents: [0.5, 0.5, 0.5]
+  Name:
+    Name: Enemy (Reimu) (Copy) (Co
+  EnemyTag: true
+- MeshRenderer:
+    ModelHandle: 8094657931191181316
+    MaterialKey: 7980601650938824885
+  Transform:
+    Position: [0.794677854, 0.0864515305, -123.665619]
+    Rotation: [0.999974251, 4.40254837e-08, -0.00717914151, -4.3397268e-08]
+    Scale: [0.999984264, 1, 0.999983788]
+  BoxCollider:
+    HalfExtents: [0.5, 0.5, 0.5]
+  Name:
+    Name: Enemy (Reimu) (Copy) (Co
+  EnemyTag: true

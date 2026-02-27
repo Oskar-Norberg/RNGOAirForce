@@ -1,0 +1,214 @@
+- MeshRenderer:
+    ModelHandle: 7929986948965244869
+    MaterialKey: 7033158785983178434
+  Transform:
+    Position: [4.10699987, -4.82000017, -37.1549988]
+    Rotation: [0.721010864, 0, 0.692923784, 0]
+    Scale: [250.000046, 250, 250.000046]
+  Name:
+    Name: House
+- Transform:
+    Position: [0, 0, 0]
+    Rotation: [1, 0, 0, 0]
+    Scale: [1, 1, 1]
+  Color:
+    ColorValue: [1, 1, 1]
+  Intensity:
+    IntensityValue: 0.800000012
+  LightFalloff:
+    Constant: 1
+    Linear: 0.0450000018
+    Quadratic: 0.00749999983
+  Spotlight:
+    CutOff: 0.98480773
+    OuterCutOff: 0.976296008
+  Name:
+    Name: Spotlight
+- Transform:
+    Position: [-1.88362455, 0.563338697, 0.0152535439]
+    Rotation: [1, 0, 0, 0]
+    Scale: [1, 1, 1]
+  Color:
+    ColorValue: [1, 1, 1]
+  Intensity:
+    IntensityValue: 0.800000012
+  LightFalloff:
+    Constant: 1
+    Linear: 0.0450000018
+    Quadratic: 0.00749999983
+  Name:
+    Name: Point Light
+  PointLight: true
+- Transform:
+    Position: [0, 0, 0]
+    Rotation: [0.351647824, 0.835217774, 0.283775449, -0.313411295]
+    Scale: [0.999989569, 1.0000329, 1.00000584]
+  Color:
+    ColorValue: [1, 1, 1]
+  Intensity:
+    IntensityValue: 0.75
+  Name:
+    Name: Directional Light
+  DirectionalLight: true
+- Transform:
+    Position: [0, 0, 0]
+    Rotation: [1, 0, 0, 0]
+    Scale: [1, 1, 1]
+  Color:
+    ColorValue: [1, 1, 1]
+  Intensity:
+    IntensityValue: 0.200000003
+  Name:
+    Name: Ambient Light
+- Transform:
+    Position: [0.464764386, 49.7440529, 146.443039]
+    Rotation: [-0.999202967, 0.0364297107, 0.0163099244, 0.000595910533]
+    Scale: [1, 1, 1]
+  Camera:
+    FOV: 45
+    NearPlane: 0.100000001
+    FarPlane: 700
+  Name:
+    Name: Camera
+- Transform:
+    Position: [0, 0, 0]
+    Rotation: [1, 0, 0, 0]
+    Scale: [1, 1, 1]
+  Color:
+    ColorValue: [1, 1, 1]
+  Name:
+    Name: Background Color
+  BackgroundColor: true
+- Transform:
+    Position: [1.76470184, 0.563338757, 1.60276413]
+    Rotation: [1, 0, 0, 0]
+    Scale: [1, 1, 1]
+  Color:
+    ColorValue: [1, 1, 1]
+  Intensity:
+    IntensityValue: 0.800000012
+  LightFalloff:
+    Constant: 1
+    Linear: 0.0450000018
+    Quadratic: 0.00749999983
+  Name:
+    Name: Point Light (Copy)
+  PointLight: true
+- MeshRenderer:
+    ModelHandle: 16601649865803698075
+    MaterialKey: 10164154114613207297
+  Transform:
+    Position: [0, -2, 0]
+    Rotation: [1, 0, 0, 0]
+    Scale: [20, 20, 20]
+  Name:
+    Name: Ground
+- MeshRenderer:
+    ModelHandle: 15914936096690442333
+    MaterialKey: 10164154114613207298
+  Transform:
+    Position: [-76.5690002, -3.28822708, -67.8899994]
+    Rotation: [0.820896566, 0, 0.57107693, 0]
+    Scale: [199.999786, 200, 199.99968]
+  Name:
+    Name: Mountain
+- MeshRenderer:
+    ModelHandle: 4407768983847193316
+    MaterialKey: 5116881967087433417
+  Transform:
+    Position: [0, 0, 0]
+    Rotation: [-0.174516276, 0.174517721, 0.685230315, 0.685235023]
+    Scale: [399.998016, 399.99231, 399.989868]
+  Name:
+    Name: Sphere
+- MeshRenderer:
+    ModelHandle: 15914936096690442333
+    MaterialKey: 10164154114613207298
+  Transform:
+    Position: [122.082649, -3.28823543, -132.246536]
+    Rotation: [0.820896506, 0, 0.571076989, 0]
+    Scale: [300, 300, 300]
+  Name:
+    Name: Mountain (Copy)
+- Transform:
+    Position: [1.24319434, 32.5099983, 147.491638]
+    Rotation: [1, 0, 0, 0]
+    Scale: [1, 1, 1]
+  Name:
+    Name: Player
+  PlayerTag: true
+- Transform:
+    Position: [0.265072823, 40.650528, -11.6490097]
+    Rotation: [1, 0, 0, 0]
+    Scale: [1, 1, 1]
+  BoxCollider:
+    HalfExtents: [10, 10, 10]
+  Name:
+    Name: PlayButtonCollider
+  SceneTarget:
+    SceneName: fumo_spline_1.rngoscene
+  TriggerSceneLoadOnShotByPlayer: true
+- MeshRenderer:
+    ModelHandle: 8094657931191181316
+    MaterialKey: 7980601650938824885
+  Transform:
+    Position: [-30, 50, 0]
+    Rotation: [0.923879504, 0, 0.382683456, 0]
+    Scale: [8, 8, 8]
+  Name:
+    Name: MenuReimu
+  Rotator:
+    Speed: 1
+- MeshRenderer:
+    ModelHandle: 4214154855038455820
+    MaterialKey: 7382136237355299742
+  Transform:
+    Position: [30, 50, 0]
+    Rotation: [0.965925813, 0, -0.258819044, 0]
+    Scale: [8, 8, 8]
+  Name:
+    Name: MenuCirno
+  Rotator:
+    Speed: -1
+- Transform:
+    Position: [0, 50, 0]
+    Rotation: [1, 0, 0, 0]
+    Scale: [1, 1, 1]
+  Color:
+    ColorValue: [1, 1, 1]
+  Intensity:
+    IntensityValue: 100
+  LightFalloff:
+    Constant: 0.5
+    Linear: 0.100000001
+    Quadratic: 0.119999997
+  Name:
+    Name: MenuPointLight
+  PointLight: true
+- MeshRenderer:
+    ModelHandle: 6082357865773981266
+    MaterialKey: 5276240552784314076
+  Transform:
+    Position: [0, 40, 3.20892191]
+    Rotation: [0.707106888, 0.70710665, 0, 0]
+    Scale: [8, 4.00826693, 7.99961996]
+  Name:
+    Name: PlayButton
+- MeshRenderer:
+    ModelHandle: 6082357865773981266
+    MaterialKey: 16800899692207556144
+  Transform:
+    Position: [0, 40, 0]
+    Rotation: [0.707106888, 0.70710665, 0, 0]
+    Scale: [11, 0.99999994, 11]
+  Name:
+    Name: PlayButton
+- MeshRenderer:
+    ModelHandle: 5850887066418014569
+    MaterialKey: 0
+  Transform:
+    Position: [-55.2272568, 75.1303787, 0]
+    Rotation: [0.707106888, 0, -0.70710665, 0]
+    Scale: [24.9970226, 25, 24.9970226]
+  Name:
+    Name: GameOver
