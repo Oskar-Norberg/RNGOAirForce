@@ -22,6 +22,7 @@
 #include "ECS/Systems/Project/PlayerContactGameoverSystem.h"
 #include "ECS/Systems/Project/ProjectileSpawningSystem.h"
 #include "ECS/Systems/Project/RailsShooterCameraSystem.h"
+#include "ECS/Systems/Project/RotateSystem.h"
 #include "ECS/Systems/Project/SetCameraPosToPlayerSystem.h"
 #include "ECS/Systems/Project/SplineAttachmentSystem.h"
 #include "ECS/Systems/Project/SplineMovementSystem.h"
@@ -302,6 +303,7 @@ namespace RNGOEngine
         m_gameSystems.RegisterSystem<Systems::Project::TriggerSceneLoadOnPlayerCollisionSystem>();
         m_gameSystems.RegisterSystem<Systems::Project::PlayerContactGameoverSystem>();
 
+        m_gameSystems.RegisterSystem<Systems::Project::RotateSystem>();
 
     }
 }

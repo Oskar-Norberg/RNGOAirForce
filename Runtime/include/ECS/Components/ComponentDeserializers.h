@@ -159,7 +159,7 @@ namespace RNGOEngine::Components
 
     static SplineAttachment DeserializeSplineAttachment(const YAML::Node& node)
     {
-        SplineAttachment splineAttachment;
+        SplineAttachment splineAttachment{};
         splineAttachment.T = node["T"].as<float>();
         splineAttachment.Speed = node["Speed"].as<float>();
 
@@ -168,12 +168,20 @@ namespace RNGOEngine::Components
 
     static SceneTarget DeserializeSceneTarget(const YAML::Node& node)
     {
-        SceneTarget sceneTarget;
+        SceneTarget sceneTarget{};
 
         auto nameStr = node["SceneName"].as<std::string>();
         std::ranges::copy(nameStr, sceneTarget.SceneNameArr.begin());
         sceneTarget.SceneNameArr[std::min(nameStr.size(), sceneTarget.SceneNameArr.size() - 1)] = '\0';
 
         return sceneTarget;
+    }
+
+    static RotateY DeserializeRotator(const YAML::Node& node)
+    {
+        RotateY rotator{};
+        rotator.RotationSpeed = node["Speed"].as<float>();
+
+        return rotator;
     }
 }

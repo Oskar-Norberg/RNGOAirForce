@@ -107,6 +107,10 @@ namespace RNGOEngine::Core
         {
             Components::SerializeTriggerSceneLoadOnShotByPlayer(emitter);
         }
+        if (registry.any_of<Components::RotateY>(entity))
+        {
+            Components::SerializeRotator(registry.get<Components::RotateY>(entity), emitter);
+        }
     }
 
     static void DeserializeComponents(entt::registry& registry, const entt::entity entity, YAML::Node& node)
@@ -214,6 +218,12 @@ namespace RNGOEngine::Core
         if (node["TriggerSceneLoadOnShotByPlayer"])
         {
             registry.emplace<Components::TriggerSceneLoadOnShotByPlayer>(entity);
+        }
+
+        if (node["Rotator"])
+        {
+            Components::RotateY rotator = Components::DeserializeRotator(node["Rotator"]);
+            registry.emplace<Components::RotateY>(entity, rotator);
         }
     }
 

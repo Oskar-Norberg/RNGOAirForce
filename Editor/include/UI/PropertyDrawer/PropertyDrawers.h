@@ -353,9 +353,11 @@ namespace RNGOEngine::Editor
         // TODO: I don't like everything needing to check if the component exists.
         if (registry.any_of<Components::SceneTarget>(entity))
         {
-            ImGui::PushID(1294978); // Yes, this sucks.
+            ImGui::PushID(1294978);  // Yes, this sucks.
             auto& sceneTarget = registry.get<Components::SceneTarget>(entity);
-            ImGui::InputText("Name", sceneTarget.SceneNameArr.data(), Components::SceneTarget::MAX_NR_CHARACTERS);
+            ImGui::InputText(
+                "Name", sceneTarget.SceneNameArr.data(), Components::SceneTarget::MAX_NR_CHARACTERS
+            );
             ImGui::PopID();
         }
     }
@@ -379,6 +381,20 @@ namespace RNGOEngine::Editor
         if (registry.any_of<Components::TriggerSceneLoadOnShotByPlayer>(entity))
         {
             ImGui::Text("TriggerSceneLoadOnShotByPlayer");
+        }
+    }
+
+    template<>
+    inline void DrawProperties<Components::RotateY>(
+        entt::registry& registry, const entt::entity entity
+    )
+    {
+        if (registry.any_of<Components::RotateY>(entity))
+        {
+            auto& rotator = registry.get<Components::RotateY>(entity);
+
+            ImGui::Text("Rotator");
+            ImGui::DragFloat("YSpeed", &rotator.RotationSpeed, 0.1f);
         }
     }
 }

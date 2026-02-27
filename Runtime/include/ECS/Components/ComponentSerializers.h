@@ -169,6 +169,13 @@ namespace RNGOEngine::Components
         emitter << YAML::EndMap;
     }
 
+    static void SerializeRotator(const RotateY& rotator, YAML::Emitter& emitter)
+    {
+        emitter << YAML::Key << "Rotator" << YAML::Value << YAML::BeginMap;
+        emitter << YAML::Key << "Speed" << YAML::Value << rotator.RotationSpeed;
+        emitter << YAML::EndMap;
+    }
+
     static void SerializeTriggerSceneLoadOnPlayerCollision(YAML::Emitter& emitter)
     {
         emitter << YAML::Key << "TriggerSceneLoadOnPlayerCollision" << YAML::Value << true;

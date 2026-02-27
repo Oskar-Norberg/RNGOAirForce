@@ -38,11 +38,15 @@ namespace RNGOEngine::Systems::Project
                 const auto mouseDelta = inputManager.GetMouseDelta();
                 if (mouseDelta.x != 0.0 || mouseDelta.y != 0.0)
                 {
-                    float yaw = glm::radians(static_cast<float>(-mouseDelta.x) * CAMERA_SENSITIVITY);
-                    float pitch = glm::radians(static_cast<float>(-mouseDelta.y) * CAMERA_SENSITIVITY);
+                    float yaw = glm::radians(
+                        static_cast<float>(-mouseDelta.x) * CAMERA_SENSITIVITY * context.DeltaTime
+                    );
+                    float pitch = glm::radians(
+                        static_cast<float>(-mouseDelta.y) * CAMERA_SENSITIVITY * context.DeltaTime
+                    );
 
-                    glm::quat quatYaw = glm::angleAxis(yaw * context.DeltaTime, glm::vec3(0.0f, 1.0f, 0.0f));
-                    glm::quat quatPitch = glm::angleAxis(pitch * context.DeltaTime, glm::normalize(right));
+                    glm::quat quatYaw = glm::angleAxis(yaw, glm::vec3(0.0f, 1.0f, 0.0f));
+                    glm::quat quatPitch = glm::angleAxis(pitch, glm::normalize(right));
 
                     transform.Rotation = glm::normalize(quatYaw * quatPitch * transform.Rotation);
                 }

@@ -92,6 +92,7 @@ namespace RNGOEngine::Editor
             DrawComponent<Components::SceneTarget>(registry, selectedEntity);
             DrawComponent<Components::TriggerSceneLoadOnPlayerCollision>(registry, selectedEntity);
             DrawComponent<Components::TriggerSceneLoadOnShotByPlayer>(registry, selectedEntity);
+            DrawComponent<Components::RotateY>(registry, selectedEntity);
 
             if (ImGui::Button("Add Component"))
             {
@@ -127,6 +128,7 @@ namespace RNGOEngine::Editor
                 DrawAddComponent<Components::TriggerSceneLoadOnShotByPlayer>(
                     registry, selectedEntity, "TriggerSceneLoadOnShotByPlayer"
                 );
+                DrawAddComponent<Components::RotateY>(registry, selectedEntity, "Rotator");
 
                 ImGui::EndPopup();
             }

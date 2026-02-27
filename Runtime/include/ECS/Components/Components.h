@@ -185,4 +185,9 @@ namespace RNGOEngine::Components
     struct TriggerSceneLoadOnShotByPlayer
     {
     };
+
+    struct RotateY
+    {
+        float RotationSpeed = 1.0f;
+    };
 }
