@@ -19,4 +19,6 @@ To generate a solution file, go into one of the subproject (runtime, editor, bui
 
 
 ## Troubleshooting
-If the program crashes on startup, your IDE or wherever you are launching the project from probably doesn't have the current working directory set to where the executable is. Either set your execution/working directory to the executable, or manually copy the CONTENTS (not the folder itself) to your working directory.
+To compile the Build version of the game, generate a solution and build the "RNGOEngine_RuntimeBuild" The other are either from libraries or other engine units which will be pulled in as you compile the head. Same goes for the Editor (RNGOEngine_Editor) and Runtime (RNGOEngine_Core)
+
+If the program crashes on startup, it's most likely due to your IDE's current working directory not being set to the same path as the executeable. This means the executeable doesn't know where to look for its assets. Either change your exeuction path/working directory to the same as the executeable, or simply launch it from the file-explorer.
