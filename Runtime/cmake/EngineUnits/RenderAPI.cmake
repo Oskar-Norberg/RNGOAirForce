@@ -48,4 +48,5 @@ target_link_libraries(${RENDER_API_PROJECT_NAME} PUBLIC
         ${UTILITIES_PROJECT_NAME}
         ${DATA_PROJECT_NAME}
         ${LOGGING_PROJECT_NAME}
+        ${ERROR_PROJECT_NAME}
 )

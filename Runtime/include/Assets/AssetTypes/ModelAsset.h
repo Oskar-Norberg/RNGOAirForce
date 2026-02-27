@@ -4,6 +4,8 @@
 
 #pragma once
 
+#include <span>
+
 #include "Assets/Asset.h"
 #include "ResourceManager/MeshResourceManager/MeshResourceManager.h"
 #include "Utilities/Containers/GenerationalVector/GenerationalVector.h"

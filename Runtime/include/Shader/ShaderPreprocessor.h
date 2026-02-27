@@ -7,6 +7,7 @@
 #include <expected>
 #include <filesystem>
 #include <functional>
+#include <span>
 #include <string>
 #include <string_view>
 #include <unordered_map>
@@ -37,7 +38,7 @@ namespace RNGOEngine::Shaders
     class ShaderPreProcessor
     {
     public:
-        ShaderPreProcessor(std::span<const Data::Shader::ShaderDefinition> definitions = {});
+        explicit ShaderPreProcessor(std::span<const Data::Shader::ShaderDefinition> definitions = {});
         std::expected<ShaderParseResult, ShaderPreProcessingError> Parse(const std::filesystem::path& source) const;
 
         void AddDefinition(const Data::Shader::ShaderDefinition& definition);
