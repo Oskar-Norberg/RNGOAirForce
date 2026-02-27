@@ -9,7 +9,6 @@ namespace RNGOEngine::Runtime
     RuntimeBuild::RuntimeBuild(const EngineConfig& config)
         : Application(config)
     {
-        // TODO: Load main menu
         auto scene = std::make_unique<RNGOEngine::Core::Scene>();
         auto yaml = YAML::LoadFile("fumo_spline_menu.rngoscene");
         scene->Deserialize(yaml);

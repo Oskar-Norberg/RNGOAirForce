@@ -49,7 +49,7 @@ namespace RNGOEngine::Systems::Project
         {
             // TODO: Hardcoded and not very dry
             auto scene = std::make_unique<RNGOEngine::Core::Scene>();
-            auto yaml = YAML::LoadFile("fumo_spline_menu.rngoscene");
+            auto yaml = YAML::LoadFile("fumo_spline_gameover.rngoscene");
             scene->Deserialize(yaml);
             sceneManager.QueueLoadScene(std::move(scene));
         }

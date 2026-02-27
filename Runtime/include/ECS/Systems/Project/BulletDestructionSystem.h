@@ -85,7 +85,7 @@ namespace RNGOEngine::Systems::Project
 
                 auto scene = std::make_unique<RNGOEngine::Core::Scene>();
                 // TODO: Very hardcoded
-                auto yaml = YAML::LoadFile("fumo_spline_menu.rngoscene");
+                auto yaml = YAML::LoadFile("fumo_spline_gameover.rngoscene");
                 scene->Deserialize(yaml);
                 sceneManager.QueueLoadScene(std::move(scene));
                 world.DestroyEntity(otherEntity);

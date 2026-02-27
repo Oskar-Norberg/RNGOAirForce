@@ -278,8 +278,8 @@ namespace RNGOEngine
 
         m_engineSystems.RegisterSystem<Systems::Core::BeginFrameSystem>();
         m_engineSystems.RegisterSystem<Systems::Core::RenderSystem>();
-        m_engineSystems.RegisterSystem<Systems::Core::RenderDebugCollidersSystem>();
-        m_engineSystems.RegisterSystem<Systems::Core::RenderDebugCollisionsSystem>();
+        // m_engineSystems.RegisterSystem<Systems::Core::RenderDebugCollidersSystem>();
+        // m_engineSystems.RegisterSystem<Systems::Core::RenderDebugCollisionsSystem>();
         m_engineSystems.RegisterSystem<Systems::Core::EndFrameSystem>();
 
         // Project Specific
